@@ -1,10 +1,10 @@
-![Layer1Run logo](https://i.ibb.co/vHCBZSY/guru-256.png)
+![Layer1Run logo](https://i.ibb.co/H4v13tz/icon.png)
 
-# Layer1Run
+# Layer1 Node Runner
 
 ### https://layer1.run
 
-A suite of nodes for Layer1 management.
+Your local Layer-1 universal node manager.
 
 ### THIS PROJECT IS CURRENTLY STILL IN ALPHA-STAGE DEVELOPMENT. PLEASE DO NOT USE IN PRODUCTION.
 
@@ -12,4 +12,4 @@ A suite of nodes for Layer1 management.
 
 ## Introduction
 
-TBD...
+Layer1 (Node Runner) is a complete solution for customizing, testing, deploying and maintaining from simple to advanced Layer1 networks.
