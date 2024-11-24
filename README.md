@@ -1,4 +1,4 @@
-![Layer1Run logo](https://i.ibb.co/H4v13tz/icon.png)
+![Layer1Run logo](https://i.ibb.co/q7nHTm5/favicon.png)
 
 # Layer1 Node Runner
 
