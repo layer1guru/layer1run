@@ -8,7 +8,7 @@ services:
     container_name: layer1run
     restart: unless-stopped
     # network_mode: 'host'
-    # ports:
+    ports:
       - '127.0.0.1:5000:3000'
     #   - '0.0.0.0:80:3000'     # use without proxy server
     logging: # apply better controls to Docker overlay folder
@@ -21,7 +21,6 @@ services:
     #   - PORT=${RUNNER_PORT} # change to match your own environment
 # Volumes
 volumes:
-  certbot-etc:
   layer1run:
 # Networks
 networks:
