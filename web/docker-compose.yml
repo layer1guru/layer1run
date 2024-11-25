@@ -18,7 +18,7 @@ services:
         max-size: '10m'
     # env_file: .env
     environment:
-      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL} # change to match your own environment
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
 # Volumes
 volumes:
   layer1run:
