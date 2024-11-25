@@ -7,8 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Layer1 Node Runner'
-copyright = '2024, Shomari'
-author = 'Shomari'
+copyright = '2024, Layer1 DAO. All rights reserved.'
+author = 'Layer1 Guru'
 release = '24.11.25'
 
 # -- General configuration ---------------------------------------------------
