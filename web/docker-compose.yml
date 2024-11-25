@@ -1,0 +1,29 @@
+# Docker Services
+services:
+  # Web Application
+  # (https://nuxt.com/)
+  webapp:
+    build: .
+    image: layer1run
+    container_name: layer1run
+    restart: unless-stopped
+    # network_mode: 'host'
+    # ports:
+      - '127.0.0.1:5000:3000'
+    #   - '0.0.0.0:80:3000'     # use without proxy server
+    logging: # apply better controls to Docker overlay folder
+      driver: 'json-file'
+      options:
+        max-file: '5'
+        max-size: '10m'
+    # env_file: .env
+    # environment:
+    #   - PORT=${RUNNER_PORT} # change to match your own environment
+# Volumes
+volumes:
+  certbot-etc:
+  layer1run:
+# Networks
+networks:
+  layer1run-network:
+    driver: bridge
