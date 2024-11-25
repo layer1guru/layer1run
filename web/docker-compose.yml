@@ -2,7 +2,7 @@
 services:
   # Web Application
   # (https://nuxt.com/)
-  webapp:
+  layer1run:
     build: .
     image: layer1run
     container_name: layer1run
