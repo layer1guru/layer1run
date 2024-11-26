@@ -49,26 +49,30 @@ export function Intro() {
                 </Link>
             </div>
 
-            <h1 className="mt-14 font-display text-4xl/tight font-light text-white">
-                Layer1 Node Runner{' '}
-                <span className="text-sky-300">for effortless devops</span>
+            <h1 className="mt-6 font-display text-6xl/tight font-light text-white">
+                Your Layer-1 Concierge{' '}
+                <span className="block text-sky-300 text-4xl">for effortless devops</span>
             </h1>
 
             <p className="mt-4 text-sm/6 text-gray-300">
-                Commit is a lightweight Git client you can open from anywhere any time
-                you’re ready to commit your work with a single keyboard shortcut. It’s
-                fast, beautiful, and completely unnecessary.
+                L1 NodΞRunr is a lightweight daemon for managing your
+                mission critical Layer-1 nodes, accessible from anywhere,
+                at any time.
+
+                It’s fast, beautiful, and completely FREE!
             </p>
 
             <SignUpForm />
 
             <div className="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-3 sm:gap-x-2 lg:justify-start">
-                <IconLink href="#" icon={BookIcon} className="flex-none">
-                    Documentation
+                <IconLink href="https://docs.layer1.run" icon={BookIcon} className="flex-none">
+                    ReadTheDocs
                 </IconLink>
-                <IconLink href="#" icon={GitHubIcon} className="flex-none">
+
+                <IconLink href="https://github.com/nyusternie/layer1run" icon={GitHubIcon} className="flex-none">
                     GitHub
                 </IconLink>
+
                 <IconLink href="/feed.xml" icon={FeedIcon} className="flex-none">
                     RSS
                 </IconLink>
