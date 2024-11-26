@@ -4,7 +4,7 @@ use std::process::Command; // Run programs
 
 #[test]
 fn file_doesnt_exist() -> Result<(), Box<dyn std::error::Error>> {
-    let mut cmd = Command::cargo_bin("guru")?;
+    let mut cmd = Command::cargo_bin("noderunr")?;
 
     cmd.arg("bar")
         .arg("bin/test.txt");

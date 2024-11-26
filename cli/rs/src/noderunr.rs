@@ -56,8 +56,8 @@ fn main() {
     // let args = Args::parse();
 
     /* Handle application arguments. */
-    let matches = App::new("Layer1Guru")
-        .version(guru::get_version().as_str())
+    let matches = App::new("L1 NodΞRunr")
+        .version(noderunr::get_version().as_str())
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .arg(Arg::with_name("seed")
@@ -92,8 +92,8 @@ fn main() {
     //     println!("  Hi there {}!\n", args.name)
     // }
 
-    // let cmd = clap::Command::new("guru")
-    // .bin_name("guru")
+    // let cmd = clap::Command::new("noderunr")
+    // .bin_name("noderunr")
     // .subcommand_required(true)
     // .subcommand(
     //     clap::command!("example").arg(
