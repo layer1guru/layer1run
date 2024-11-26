@@ -46,7 +46,8 @@ fn main() {
     setup_panic!();
 
     /* Display welcome banner. */
-    artwork::welcome::banner();
+    // artwork::welcome::banner();
+    artwork::welcome::banner_alt();
 
     // let args = Cli::parse();
     // println!("  (Private) seed phrase is : {}", args.seed_phrase);
