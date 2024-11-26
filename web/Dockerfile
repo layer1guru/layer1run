@@ -12,5 +12,4 @@ RUN yarn run build
 
 EXPOSE 3000
 
-# CMD ["node", ".output/server/index.mjs"]
 CMD ["yarn", "run", "start"]

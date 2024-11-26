@@ -2,7 +2,7 @@
 name = "guru"
 version = "22.9.18"
 authors = ["Ava's DAO <support@avasdao.org>"]
-description = "Design, Build, Test, Deploy and Manage your bespoke Avalanche Subnets."
+description = "L1 NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
 homepage = "https://layer1.guru"
 repository = "https://github.com/nyusternie/layer1guru"
 categories = ["subnets", "cryptocurrency"]
