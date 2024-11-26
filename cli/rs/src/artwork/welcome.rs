@@ -14,8 +14,9 @@ pub fn banner() {
    \____|__  /\____/\____ | /_______  / |____|_  /____/|___|  /__|
            \/            \/         \/         \/           \/       ");
 
-    println!("                                              by L1 GÜRŲ");
-    println!("                                              {}\n", noderunr::get_version());
+    println!("                                          {}\n", noderunr::get_version());
+    println!("                                          brought to you by L1 GÜRŲ");
+    println!("                                          https://layer1.guru");
 }
 
 /**
@@ -33,8 +34,9 @@ pub fn banner_alt() {
     ██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║╚██████╔╝██║ ╚████║██║  ██║
     ╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝");
 
-    println!("                                                  by L1 GÜRŲ");
-    println!("                                                  {}\n", noderunr::get_version());
+    println!("                                              {}\n", noderunr::get_version());
+    println!("                                              brought to you by L1 GÜRŲ");
+    println!("                                              https://layer1.guru");
 }
 
 /**
@@ -53,6 +55,7 @@ pub fn banner_alt_2() {
     |  |  |l     !|     ||     T|  .  Yl     ||  |  ||  .  Y
     l__j__j \___/ l_____jl_____jl__j\_j \__,_jl__j__jl__j\_j");
 
-    println!("                                         by L1 GÜRŲ");
-    println!("                                         {}\n", noderunr::get_version());
+    println!("                                     {}\n", noderunr::get_version());
+    println!("                                     brought to you by L1 GÜRŲ");
+    println!("                                     https://layer1.guru");
 }
