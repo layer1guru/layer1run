@@ -4,6 +4,8 @@ use std::collections::HashMap;
 use std::thread;
 use std::time::Duration;
 
+use reqwest;
+
 /**
  * Start Download
  * 
@@ -41,6 +43,27 @@ pub async fn get_ip() -> Result<(), Box<dyn std::error::Error>> {
         .json::<HashMap<String, String>>()
         .await?;
     println!("{:#?}\n", resp);
+
+    Ok(())
+}
+
+#[tokio::main]
+pub async fn test_api() -> Result<(), Box<dyn std::error::Error>> {
+    let url = "https://layer1.guru/v1/session";
+    // let headers = [("Authorization", "Bearer YOUR_API_KEY"), ("X-Custom-Header", "value")];
+    let json_data = r#"{"name": "John Doe", "email": "john.doe@example.com"}"#;
+
+    let client = reqwest::Client::new();
+    let response = client.post(url)
+        .header("Content-Type", "application/json")
+        // .headers(headers.into_iter().collect())
+        .body(json_data.to_string())
+        .send()
+        .await?;
+
+    println!("Status: {}", response.status());
+    let response_body = response.text().await?;
+    println!("Response body:\n{}", response_body);
 
     Ok(())
 }

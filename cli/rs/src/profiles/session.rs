@@ -16,6 +16,7 @@ pub fn new() -> String {
     // FOR DEVELOPMENT ONLY
     // println!("createdAt {:#}\n", utils::epoch::ms());
     println!("*** IP -> {:?}\n", utils::remote::get_ip());
+    println!("*** API -> {:?}\n", utils::remote::test_api());
 
     /* Return session ID. */
     sessionid.to_string()
