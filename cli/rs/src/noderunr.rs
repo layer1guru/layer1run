@@ -158,7 +158,7 @@ fn main() {
     // }
     // println!("  Node ID is: {}\n", node.get_id);
 
-    // messenger::build::json_test();
+    messenger::build::json_test();
 
     profiles::session::new();
 
