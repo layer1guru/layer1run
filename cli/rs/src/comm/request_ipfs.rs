@@ -39,6 +39,8 @@ pub fn wait_for_request() {
         
         thread::sleep(ten_seconds);
         
-        assert!(now.elapsed() >= ten_seconds);    
+        assert!(now.elapsed() >= ten_seconds);
+
+        println!("  waiting...\n");
     }
 }

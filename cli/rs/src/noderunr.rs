@@ -9,11 +9,12 @@ use serde_json::json;
 
 /* Import modules. */
 mod api;
-mod commander;
+mod cmd;
+mod comm;
 mod crypto;
 mod messenger;
-mod p2p;
-mod profiles;
+mod node;
+mod privacy;
 mod ui;
 mod utils;
 
@@ -160,13 +161,13 @@ fn main() {
 
     messenger::build::json_test();
 
-    profiles::session::new();
+    node::session::new();
 
-    p2p::comm::wait_for_request();
+    comm::monitor::cmd("1337");
 
     // panic!("Oops! What happened??");
 
-    // p2p::comm::make_request();
+    // comm::make_request();
 
     // utils::remote::get_ip();
 
