@@ -14,12 +14,8 @@ pub fn new() -> String {
     println!("  https://layer1.run/{}\n", sessionid);
 
     // FOR DEVELOPMENT ONLY
-    // println!("{:#}\n", json!({
-    //     "type": "message",
-    //     "content": "Hi there!",
-    //     "ip": utils::remote::get_ip(),
-    //     "createdAt": utils::epoch::ms(),
-    // }));
+    // println!("createdAt {:#}\n", utils::epoch::ms());
+    println!("*** IP -> {:?}\n", utils::remote::get_ip());
 
     /* Return session ID. */
     sessionid.to_string()
