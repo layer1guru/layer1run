@@ -1,5 +1,5 @@
-use serde::{Serialize};
-use serde_json::{json, to_string};
+use serde::{Deserialize, Serialize};
+use serde_json::{from_str, json, to_string};
 
 use std::process::exit;
 use std::{thread, time};
@@ -14,6 +14,16 @@ struct Node {
     nodeid: String,
     since: u32,
 }
+
+#[derive(Deserialize)]
+#[derive(Debug)]
+struct NodeResponse {
+    _id: String,
+    nodeid: String,
+    since: u32,
+    created_at: u32,
+}
+
 
 /**
  * Call
@@ -60,6 +70,15 @@ pub fn cmd(_nodeid: &str) {
 
         println!("  waiting...\n");
 
-        request_json(_nodeid);
+        let response = request_json(_nodeid);
+        // println!("  waiting (JSON)... {}\n", response.unwrap());
+
+        let json_string = r#"{"_id":"some-id","nodeid":"Jane Doe","since":25,"created_at":123}"#;
+
+        let node_resp: NodeResponse = from_str(&response.unwrap()).unwrap();
+        println!("{:?}", node_resp); // Output: Person { name: "Jane Doe", age: 25 }
+        println!("ID -> {}", node_resp._id);
+        println!("NODE ID -> {}", node_resp.nodeid);
+        println!("CREATED -> {}", node_resp.created_at);
     }
 }
