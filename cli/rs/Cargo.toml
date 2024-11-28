@@ -1,6 +1,6 @@
 [package]
 name = "noderunr"
-version = "24.11.27"
+version = "24.11.28"
 authors = ["Shomari <nyusternie@protonmail.com>"]
 description = "L1 NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
 homepage = "https://layer1.run"
@@ -23,6 +23,7 @@ indicatif = "0.17.1"
 ipfs = { git = "https://github.com/rs-ipfs/rust-ipfs" }
 log = "0.4.17"
 reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde = "1.0.215"
 serde_json = "1.0.85"
 tokio = { version = "1", features = ["full"] }
 tokio-stream = "0.1"

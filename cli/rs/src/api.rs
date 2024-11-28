@@ -21,9 +21,11 @@ pub async fn call(_endpoint: &str, _json: &str) -> Result<String, Box<dyn std::e
         .send()
         .await?;
 
-    println!("Status: {}", response.status());
+    // TODO Validate status (200 OK)        
+    // println!("Status: {}", response.status());
+    
     let response_body = response.text().await?;
-    println!("Response body:\n{}", response_body);
+    // println!("Response body:\n{}", response_body);
 
     /* Return response. */
     Ok(response_body)

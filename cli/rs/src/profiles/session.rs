@@ -28,14 +28,16 @@ pub fn new() -> String {
     println!("*** IP -> {:?}\n", utils::remote::get_ip());
 
     // utils::logger::test_log();
-    // commander::sys::who_am_i();
+    let my_list = commander::sys::ls().expect("Oops! Could NOT retrieve My List.");
+println!("***MY LIST*** {:?}", my_list);
 
     let myself = commander::sys::who_am_i();
+println!("***MYSELF*** {:?}", myself);
     // let json_data = r#"{"action": "register", "sysinfo": "REDACTED"}"#;
     
     let node = Node {
         action: "register".to_string(),
-        pkg: "Satoshi Nakamoto".to_string(),
+        pkg: my_list,
         // age: 30,
     };
 
@@ -43,7 +45,7 @@ pub fn new() -> String {
 
     // let json_data = format!(r#"{"action": "register", "sysinfo": "REDA"}"#, 
     //     myself.unwrap_or("FAILED! Myself...".to_string()));
-println!("***JSON*** {:?}", json_string);    
+println!("***JSON*** {:?}", json_string);
         let response = api::call("session", &json_string);
 println!("***RESPONSE*** {:?}", response);
 
