@@ -7,10 +7,10 @@ const L1GURU_ENDPOINT: &str = "https://layer1.guru/v1/";
  * Make a (remote) API call.
  */
 #[tokio::main]
-pub async fn call(_endpoint: &str, _json: &str) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn call(_endpoint: &str, _json: &str) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
     let url = format!("{}{}", L1GURU_ENDPOINT, _endpoint);
-println!("URL {}", url);
+
     // let headers = [("Authorization", "Bearer YOUR_API_KEY"), ("X-Custom-Header", "value")];
 
     let client = reqwest::Client::new();
@@ -26,5 +26,5 @@ println!("URL {}", url);
     println!("Response body:\n{}", response_body);
 
     /* Return response. */
-    Ok(())
+    Ok(response_body)
 }
