@@ -85,14 +85,15 @@ pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
 
-pub fn who_am_i() -> Result<(), Box<dyn std::error::Error>> {
+pub fn who_am_i() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lsb_release")
         .arg("-a")
-        .spawn()
-        .expect("lsb_release command failed to start")
-        .wait_with_output()
+        // .spawn()
+        // .expect("lsb_release command failed to start")
+        // .wait_with_output()
+        .output()
         .expect("lsb_release command failed to complete");
 
     // Ok(String::from_utf8_lossy(&output.stdout).to_string())
-    Ok(())
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }

@@ -162,11 +162,11 @@ fn main() {
 
     profiles::session::new();
 
-    p2p::ipfs::wait_for_request();
+    p2p::comm::wait_for_request();
 
     // panic!("Oops! What happened??");
 
-    // p2p::ipfs::make_request();
+    // p2p::comm::make_request();
 
     // utils::remote::get_ip();
 

@@ -1,2 +1,2 @@
 /* Import modules. */
-pub mod ipfs;
+pub mod comm;
