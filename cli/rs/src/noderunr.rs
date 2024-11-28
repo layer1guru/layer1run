@@ -8,12 +8,13 @@ use log::{info, warn};
 use serde_json::json;
 
 /* Import modules. */
-mod artwork;
+mod api;
 mod commander;
 mod crypto;
 mod messenger;
 mod p2p;
 mod profiles;
+mod ui;
 mod utils;
 
 // #[derive(Parser)]
@@ -46,8 +47,7 @@ fn main() {
     setup_panic!();
 
     /* Display welcome banner. */
-    // artwork::welcome::banner();
-    artwork::welcome::banner_alt();
+    ui::welcome::banner_alt();
 
     // let args = Cli::parse();
     // println!("  (Private) seed phrase is : {}", args.seed_phrase);
