@@ -26,7 +26,7 @@ export function SignUpForm() {
                 <div className="absolute inset-0 -z-10 rounded-lg bg-white/2.5 ring-1 ring-white/15 transition peer-focus:ring-sky-300" />
             </form>
 
-            <small className="pl-3 pt-2 text-xs italic tracking-wider">
+            <small className="pl-3 pt-2 text-xs text-slate-100 italic tracking-wider">
                 Paste into your macOS, Linux or WSL terminal
             </small>
         </>
