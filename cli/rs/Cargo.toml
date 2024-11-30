@@ -1,11 +1,11 @@
 [package]
 name = "noderunr"
-version = "22.9.18"
-authors = ["Ava's DAO <support@avasdao.org>"]
+version = "24.11.28"
+authors = ["Shomari <nyusternie@protonmail.com>"]
 description = "L1 NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
 homepage = "https://layer1.run"
 repository = "https://github.com/nyusternie/layer1run"
-categories = ["subnets", "cryptocurrency"]
+categories = ["blockchain", "cryptocurrency"]
 keywords = ["avalanche", "avax", "crypto", "cryptocurrency", "bot", "command-line"]
 readme = "README.md"
 license = "MIT OR Apache-2.0"
@@ -22,7 +22,8 @@ human-panic = "1.0.3"
 indicatif = "0.17.1"
 ipfs = { git = "https://github.com/rs-ipfs/rust-ipfs" }
 log = "0.4.17"
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde = "1.0.215"
 serde_json = "1.0.85"
 tokio = { version = "1", features = ["full"] }
 tokio-stream = "0.1"

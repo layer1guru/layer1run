@@ -4,6 +4,8 @@ use std::collections::HashMap;
 use std::thread;
 use std::time::Duration;
 
+use reqwest;
+
 /**
  * Start Download
  * 
@@ -35,12 +37,12 @@ pub fn start_download() {
  * Retrieves IP address from a remote (web) data source.
  */
 #[tokio::main]
-pub async fn get_ip() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn get_ip() -> Result<HashMap<String, String>, Box<dyn std::error::Error>> {
     let resp = reqwest::get("https://httpbin.org/ip")
         .await?
         .json::<HashMap<String, String>>()
         .await?;
-    println!("{:#?}\n", resp);
+    // println!("{:#?}\n", resp);
 
-    Ok(())
+    Ok(resp)
 }
