@@ -7,27 +7,27 @@ import { Providers } from '@/app/providers'
 import '@/styles/tailwind.css'
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-inter',
 })
 
 const monaSans = localFont({
-  src: '../fonts/Mona-Sans.var.woff2',
-  display: 'swap',
-  variable: '--font-mona-sans',
-  weight: '200 900',
+    src: '../fonts/Mona-Sans.var.woff2',
+    display: 'swap',
+    variable: '--font-mona-sans',
+    weight: '200 900',
 })
 
 export const metadata = {
-  title: 'Commit - Open-source Git client for macOS minimalists',
-  description:
-    'Commit is a lightweight Git client you can open from anywhere any time you’re ready to commit your work with a single keyboard shortcut. It’s fast, beautiful, and completely unnecessary.',
-  alternates: {
-    types: {
-      'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
+    title: 'NodΞRunr by L1 GÜRŲ',
+    description:
+        'A lightweight daemon for effortless devops. Manage your mission critical Layer-1 nodes. Accessible from anywhere, at any time. It’s fast, beautiful, and completely FREE!',
+    alternates: {
+        types: {
+            'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
+        },
     },
-  },
 }
 
 export default function RootLayout({ children }) {
