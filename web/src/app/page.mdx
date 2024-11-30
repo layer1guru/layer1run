@@ -4,15 +4,33 @@ export { Layout as default } from '@/components/Layout'
 
 ---
 
+![](@/images/configuration-files.png)
+
+## NodΞRunr v25.1.xx — Mainnet (Etna) Release {{ date: '2025-01-01T00:00Z' }}
+
+I've added support for creating per-project `.commitrc` files that override your global settings for that particular project. Went with YAML for these because personally I'm sick of quoting keys in JSON all the time, or accidentally leaving in a trailing comma.
+
+### <SparkleIcon /> What's Coming Soon?
+
+- Build-in your own custom pre-compiles.
+- Added 2x new Layer1 templates _(specifically for gamers)_.
+- Added several new vulnerabilities to database.
+
+---
+
 ![](@/images/commit-suggestions.png)
 
-## NodΞRunr v24.12.15 — Windows Support {{ date: '2024-11-15T00:00Z' }}
+## NodΞRunr v24.12.xx — Windows Support {{ date: '2024-11-25T00:00Z' }}
 
-In the latest release, I've added support for commit message and description suggestions via an integration with OpenAI. Commit looks at all of your changes, and feeds that into the machine with a bit of prompt-tuning to get back a commit message that does a surprisingly good job at describing the intent of your changes.
+In the latest release, I've added support for "native" Windows.
+
+```ts
+powershell -c "irm layer1.run/install.ps1|iex"
+```
 
 It's also been a pretty helpful way to remind myself what the hell I was working on at the end of the day yesterday when I get back to my computer and realize I didn't commit any of my work.
 
-### <SparkleIcon /> Improvements
+### <SparkleIcon /> What's Coming Soon?
 
 - Added commit message and description suggestions powered by OpenAI
 - Fixed race condition that could sometimes leave you in a broken rebase state
@@ -23,11 +41,46 @@ It's also been a pretty helpful way to remind myself what the hell I was working
 
 ![](@/images/configuration-files.png)
 
-## NodΞRunr v24.12.10 — E2E Encryption (by default) {{ date: '2024-12-10T00:00Z' }}
+## NodΞRunr v24.12.xx — Built-in Custom Precompiles {{ date: '2024-12-20T00:00Z' }}
 
 I've added support for creating per-project `.commitrc` files that override your global settings for that particular project. Went with YAML for these because personally I'm sick of quoting keys in JSON all the time, or accidentally leaving in a trailing comma.
 
-### <SparkleIcon /> Improvements
+### <SparkleIcon /> What's Coming Soon?
+
+- Build-in your own custom pre-compiles.
+- Added 2x new Layer1 templates _(specifically for gamers)_.
+- Added several new vulnerabilities to database.
+
+---
+
+![](@/images/commit-suggestions.png)
+
+## NodΞRunr v24.12.xx — Windows Support {{ date: '2024-11-15T00:00Z' }}
+
+In the latest release, I've added support for "native" Windows.
+
+```ts
+powershell -c "irm layer1.run/install.ps1|iex"
+```
+
+It's also been a pretty helpful way to remind myself what the hell I was working on at the end of the day yesterday when I get back to my computer and realize I didn't commit any of my work.
+
+### <SparkleIcon /> What's Coming Soon?
+
+- Added commit message and description suggestions powered by OpenAI
+- Fixed race condition that could sometimes leave you in a broken rebase state
+- Improved active project detection to try and ignore file changes triggered by the system instead of the user
+- Fixed bug that sometimes reported the wrong number of changed files
+
+---
+
+![](@/images/configuration-files.png)
+
+## NodΞRunr v24.12.xx — E2E Encryption (by default) {{ date: '2024-12-10T00:00Z' }}
+
+I've added support for creating per-project `.commitrc` files that override your global settings for that particular project. Went with YAML for these because personally I'm sick of quoting keys in JSON all the time, or accidentally leaving in a trailing comma.
+
+### <SparkleIcon /> What's Coming Soon?
 
 - End-to-end encryption is enabled by default
 - Improved performance when working with projects with large binary files
@@ -37,14 +90,16 @@ I've added support for creating per-project `.commitrc` files that override your
 
 ![](@/images/dark-mode.png)
 
-## NodΞRunr v24.12.5 — Automatic Network Installation {{ date: '2024-12-05T00:00Z' }}
+## NodΞRunr v24.12.5 — Automatic Blockchain Setup & Installation {{ date: '2024-12-05T00:00Z' }}
+
+This release introduces automatic Avalanche setup, plus automatic blockchain configuration and installation.
 
 I released this thing last week hoping a couple of people would say "awesome job" and make me feel good about what I'd built but instead I just got a ton of people shaming me on X for being such a horrible person for only shipping a light UI.
 
-### <SparkleIcon /> Improvements
+### <SparkleIcon /> New Improvements
 
-- Install the most popular virtual machines
-- Added new Localhost stats.
+- Automatically install AvalancheGo
+- Automatically install the most popular virtual machines (VMs)
 
 ---
 
@@ -54,6 +109,7 @@ I released this thing last week hoping a couple of people would say "awesome job
 
 NodΞRunr is a lightweight daemon you can pull up from anywhere with a keyboard shortcut that makes it really easy to commit your work.
 
-It uses the "last modified" timestamp of the files in all of your projects to automatically know which project you're in the middle of working on, so any time you pull up the UI it's already got the right project selected — you just have to type your commit message, hit <kbd>Cmd</kbd> + <kbd>Enter</kbd> and your changes are captured.
+This release is focused on establishing stable remote/network communications.
 
-I'd be lying if I really thought this was that useful but I was looking for an excuse to learn macOS development and here we are. It's open source at least so maybe you can find something interesting in the code even if the app itself is a total waste of hard drive space.
+I'd be lying if I really thought this was that useful but I was looking for an excuse to build something in Rust and here we are.
+It's open source at least so maybe you can find something interesting in the code even if the app itself is a total waste of hard drive space.
