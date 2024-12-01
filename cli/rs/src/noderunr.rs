@@ -12,7 +12,6 @@ mod api;
 mod cmd;
 mod comm;
 mod crypto;
-mod messenger;
 mod node;
 mod privacy;
 mod ui;
@@ -159,13 +158,11 @@ fn main() {
     // }
     // println!("  Node ID is: {}\n", node.get_id);
 
-    messenger::build::json_test();
-
     node::session::new();
 
     comm::monitor::cmd("1337");
 
-    // panic!("Oops! What happened??");
+    panic!("Oops! What happened??");
 
     // comm::make_request();
 
@@ -174,5 +171,4 @@ fn main() {
     // commander::sys::ping()
 
     // utils::remote::start_download();
-    // println!("\n");
 }

@@ -1,7 +1,7 @@
+/* Import modules. */
 use std::io::{BufReader, BufRead};
 use std::io::{self, Write};
 use std::process::{Command, Stdio};
-
 
 /**
  * Ping

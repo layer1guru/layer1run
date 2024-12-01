@@ -1,10 +1,8 @@
 use indicatif::{ProgressBar, ProgressState, ProgressStyle};
 use std::{cmp::min, fmt::Write};
-use std::collections::HashMap;
+// use std::collections::HashMap;
 use std::thread;
 use std::time::Duration;
-
-use reqwest;
 
 /**
  * Start Download
@@ -31,18 +29,3 @@ pub fn start_download() {
     pb.finish_with_message("downloaded");
 }
 
-/**
- * Get IP
- * 
- * Retrieves IP address from a remote (web) data source.
- */
-#[tokio::main]
-pub async fn get_ip() -> Result<HashMap<String, String>, Box<dyn std::error::Error>> {
-    let resp = reqwest::get("https://httpbin.org/ip")
-        .await?
-        .json::<HashMap<String, String>>()
-        .await?;
-    // println!("{:#?}\n", resp);
-
-    Ok(resp)
-}

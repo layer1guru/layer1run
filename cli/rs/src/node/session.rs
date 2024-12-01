@@ -13,23 +13,19 @@ struct Action {
     // age: u32,
 }
 
+/**
+ * New Session
+ *
+ * Request a new session from the API server.
+ */
 pub fn new() -> String {
-    /* Generate new session id. */
-    let sessionid = Uuid::new_v4();
-
-    println!("  NEW session created successfully!\n");
-    println!("  [ {} ]\n", sessionid);
-
-    println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
-    println!("  https://layer1.run/node/#/{}\n", sessionid);
-
     // FOR DEVELOPMENT ONLY
     // println!("createdAt {:#}\n", utils::epoch::ms());
-    println!("*** IP -> {:?}\n", utils::remote::get_ip());
+    println!("*** IP -> {:?}\n", utils::ip::get());
 
     // utils::logger::test_log();
-    let my_list = cmd::sys::ls().expect("Oops! Could NOT retrieve My List.");
-println!("***MY LIST*** {:?}", my_list);
+    // let my_list = cmd::sys::ls().expect("Oops! Could NOT retrieve My List.");
+// println!("***MY LIST*** {:?}", my_list);
 
     let myself = cmd::sys::who_am_i();
 println!("***MYSELF*** {:?}", myself);
@@ -47,7 +43,18 @@ println!("***MYSELF*** {:?}", myself);
     //     myself.unwrap_or("FAILED! Myself...".to_string()));
 println!("***JSON*** {:?}", json_string);
         let response = api::call("session", &json_string);
-println!("***RESPONSE*** {:?}", response);
+println!("***RESPONSE (json)*** {:?}", response);
+
+
+
+    /* Generate new session id. */
+    let sessionid = Uuid::new_v4();
+
+    println!("  NEW session created successfully!\n");
+    println!("  [ {} ]\n", sessionid);
+
+    println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
+    println!("  https://layer1.run/sid/#/{}\n", sessionid);
 
     /* Return session ID. */
     sessionid.to_string()

@@ -3,9 +3,9 @@ use serde_json::json;
 use crate::utils;
 
 /**
- * JSON Test
+ * Print Test
  */
-pub fn json_test() {
+pub fn test_print() {
     println!("{:#}\n", json!({
         "type": "message",
         "content": "Hi there!",
