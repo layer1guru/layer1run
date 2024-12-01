@@ -1,6 +1,6 @@
-use serde::{Serialize};
-use serde_json::{json, to_string};
-use uuid::Uuid;
+use serde::{Deserialize, Serialize};
+use serde_json::{from_str, json, to_string};
+// use uuid::Uuid;
 
 use crate::api;
 use crate::comm;
@@ -8,11 +8,19 @@ use crate::cmd;
 use crate::utils;
 
 #[derive(Serialize)]
-struct Action {
-    action: String,
-    pkg: String,
+struct Registration {
+    method: String,
+    ip: String,
     // age: u32,
 }
+
+#[derive(Debug, Deserialize)]
+struct RegistrationResponse {
+    sessionid: String,
+    success: bool,
+    created_at: u32, // seconds
+}
+
 
 /**
  * New Session
@@ -20,10 +28,6 @@ struct Action {
  * Request a new session from the API server.
  */
 pub fn new() -> String {
-    // FOR DEVELOPMENT ONLY
-    // println!("createdAt {:#}\n", utils::epoch::ms());
-    println!("*** IP -> {:?}\n", utils::ip::get());
-
     // utils::logger::test_log();
     // let my_list = cmd::sys::ls().expect("Oops! Could NOT retrieve My List.");
 // println!("***MY LIST*** {:?}", my_list);
@@ -32,24 +36,29 @@ pub fn new() -> String {
 println!("***MYSELF*** {:?}", myself);
     // let json_data = r#"{"action": "register", "sysinfo": "REDACTED"}"#;
     
-    let action = Action {
-        action: "register".to_string(),
-        pkg: myself.unwrap(),
+    let response = utils::ip::get().unwrap();
+
+    let ip = &response["origin"];
+println!("IP -> {}", ip);
+
+    let pkg = Registration {
+        method: "register".to_string(),
+        ip: ip.to_string(),
         // age: 30,
     };
 
-    let json_string = to_string(&action).unwrap();
-
-    // let json_data = format!(r#"{"action": "register", "sysinfo": "REDA"}"#, 
-    //     myself.unwrap_or("FAILED! Myself...".to_string()));
+    let json_string = to_string(&pkg).unwrap();
 println!("***JSON*** {:?}", json_string);
+
         let response = api::call("session", &json_string);
 println!("***RESPONSE (json)*** {:?}", response);
 
-
+let response: RegistrationResponse = from_str(&response.unwrap()).unwrap();
+println!("***RESPONSE (session)*** {:?}", response);
 
     /* Generate new session id. */
-    let sessionid = Uuid::new_v4();
+    // let sessionid = Uuid::new_v4();
+    let sessionid = response.sessionid;
 
     println!("  NEW session created successfully!\n");
     println!("  [ {} ]\n", sessionid);
