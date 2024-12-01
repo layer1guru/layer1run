@@ -34,33 +34,32 @@ pub fn new() -> String {
 
     /* Request release. */
     let release = cmd::sys::get_release().unwrap();
-println!("RELEASE {:?}", release);
+// println!("RELEASE {:?}", release);
     
     /* Request IP address. */
     let response = utils::ip::get().unwrap();
 
     /* Set IP address. */
     let ip = &response["origin"];
-println!("IP -> {}", ip);
+// println!("IP -> {}", ip);
 
     /* Build (registration) package. */
     let pkg = Registration {
-        method: "register".to_string(),
+        method: "reg".to_string(),
         ip: ip.to_string(),
         release: release.to_string(),
     };
 
     /* Encode to JSON. */
     let json_string = to_string(&pkg).unwrap();
-println!("***JSON*** {:?}", json_string);
 
     /* Make (remote) request. */
     let response = api::call("session", &json_string);
-println!("***RESPONSE (json)*** {:?}", response);
+// println!("\nRESPONSE (json) {:?}", response);
 
     /* Parse (registration) response. */
     let response: RegistrationResponse = from_str(&response.unwrap()).unwrap();
-println!("***RESPONSE (session)*** {:?}", response);
+// println!("\nRESPONSE (session) {:?}", response);
 
     /* Set session id. */
     let sessionid = response.sessionid;
@@ -69,7 +68,10 @@ println!("***RESPONSE (session)*** {:?}", response);
     println!("  [ {} ]\n", sessionid);
 
     println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
-    println!("  https://layer1.run/sid/#/{}\n", sessionid);
+    println!("  https://layer1.run/sid/#/{}", sessionid);
+
+    /* Start monitoring session. */
+    comm::monitor::by_session(&sessionid);
 
     /* Return session ID. */
     sessionid.to_string()

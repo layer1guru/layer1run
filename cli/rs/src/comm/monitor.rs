@@ -6,15 +6,6 @@ use std::{thread, time};
 use tokio::io::AsyncWriteExt;
 use tokio_stream::StreamExt;
 
-/* Initialize constants. */
-const L1GURU_ENDPOINT: &str = "https://layer1.guru/v1/";
-
-#[derive(Serialize)]
-struct Session {
-    sessionid: String,
-    since: u32, // seconds
-}
-
 #[derive(Debug, Deserialize)]
 struct Action {
     actionid: Option<String>,
@@ -31,8 +22,14 @@ struct Log {
 
 #[derive(Debug, Deserialize)]
 struct Request {
-    body: String,
+    exec: String,
     created_at: u64, // milliseconds
+}
+
+#[derive(Serialize)]
+struct Session {
+    sessionid: String,
+    since: u64, // milliseconds
 }
 
 #[derive(Debug, Deserialize)]
@@ -44,7 +41,14 @@ struct SessionResponse {
     res: Option<Vec<Action>>,
     rpt: Option<Vec<Action>>,
     created_at: u32, // seconds
+    last_since: u64 // milliseconds
 }
+
+/* Initialize constants. */
+const L1GURU_ENDPOINT: &str = "https://layer1.guru/v1/";
+
+/* Initialize globals. */
+static mut LAST_SINCE: u64 = 1;
 
 
 /**
@@ -53,13 +57,13 @@ struct SessionResponse {
  * Make a (remote) API call.
  */
 #[tokio::main]
-async fn request_json(_sessionid: &str) -> Result<String, Box<dyn std::error::Error>> {
+async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
     let url = format!("{}{}", L1GURU_ENDPOINT, "session");
 
     let session = Session {
         sessionid: _sessionid.to_string(),
-        since: 0,
+        since: _since,
     };
 
     let json_string = to_string(&session).unwrap();
@@ -81,6 +85,8 @@ async fn request_json(_sessionid: &str) -> Result<String, Box<dyn std::error::Er
 pub fn by_session(_sessionid: &str) {
     println!("\n  Waiting for Client command...");
 
+    let mut response: Result<String, Box<dyn std::error::Error>>;
+
     /* Start inifinite loop. */
     loop {
         let ten_seconds = time::Duration::from_millis(10000);
@@ -90,9 +96,11 @@ pub fn by_session(_sessionid: &str) {
         
         assert!(now.elapsed() >= ten_seconds);
 
-        /* Make (remote) JSON (data) request. */
-        let response = request_json(_sessionid);
-        // println!("\n  ...handler -> {}", response.as_ref().unwrap());
+        unsafe {
+            /* Make (remote) JSON (data) request. */
+            response = request_json(_sessionid, LAST_SINCE);
+            // println!("\n  ...handler -> {}", response.as_ref().unwrap());
+        }
 
         // let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
 
@@ -100,8 +108,9 @@ pub fn by_session(_sessionid: &str) {
         println!("\n---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
 
         println!("  SESSION ID -> {}", session_resp.sessionid);
-        println!("  ACTION -> {:?}", session_resp.act);
-        println!("  REQUEST -> {:?}", session_resp.req);
-        println!("  CREATED -> {}", session_resp.created_at);
+        println!("      ACTION -> {:?}", session_resp.act);
+        println!("     REQUEST -> {:?}", session_resp.req);
+        println!("     CREATED -> {}", session_resp.created_at);
+        println!("  LAST SINCE -> {}", session_resp.last_since);
     }
 }
