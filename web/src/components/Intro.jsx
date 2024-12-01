@@ -1,8 +1,11 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { IconLink } from '@/components/IconLink'
 import { Logo } from '@/components/Logo'
 import { SignUpForm } from '@/components/SignUpForm'
+
+import iconLogo from '../images/icon.png'
 
 function BookIcon(props) {
     return (
@@ -45,19 +48,23 @@ export function Intro() {
         <>
             <div>
                 <Link href="/">
-                    <Logo className="inline-block h-8 w-auto" />
+                    {/* <LogoIcon className="inline-block h-8 w-auto" /> */}
+                    <Image src={iconLogo} width={50} height={50} />
                 </Link>
             </div>
 
-            <h1 className="mt-6 font-display text-6xl/tight font-light text-white">
-                Your Layer-1 Concierge{' '}
-                <span className="block text-sky-300 text-4xl">for effortless devops</span>
+            <h1 className="mt-6 text-7xl/tight font-light text-slate-100">
+                NodΞRunr{' '}
+
+                <span className="block font-display text-sky-300 text-4xl">
+                    24x7 Layer-1 Concierge
+                </span>
             </h1>
 
-            <p className="mt-4 text-sm/6 text-gray-300">
-                L1 NodΞRunr is a lightweight daemon for managing your
-                mission critical Layer-1 nodes, accessible from anywhere,
-                at any time.
+            <p className="mt-4 text-sm/6 text-slate-200">
+                A lightweight daemon for effortless DevOps.
+                Manage your mission critical Layer-1 nodes.
+                Accessible from anywhere, at any time.
 
                 It’s fast, beautiful, and completely FREE!
             </p>
@@ -74,7 +81,7 @@ export function Intro() {
                 </IconLink>
 
                 <IconLink href="/feed.xml" icon={FeedIcon} className="flex-none">
-                    RSS
+                    #TheArena
                 </IconLink>
             </div>
         </>
@@ -88,7 +95,10 @@ export function IntroFooter() {
             <IconLink href="https://x.com/0xShomari" icon={XIcon} compact>
                 0xShomari
             </IconLink>
-            for AVAX retro9000
+            for
+            <Link href="https://retro9000.avax.network" className="font-medium text-rose-400 hover:text-rose-300">
+                AVAX retro9000
+            </Link>
         </p>
     )
 }
