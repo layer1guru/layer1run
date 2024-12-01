@@ -71,9 +71,9 @@ pub fn cmd(_sessionid: &str) {
         println!("  waiting...\n");
 
         let response = request_json(_sessionid);
-        // println!("  waiting (JSON)... {}\n", response.unwrap());
+        println!("  waiting (JSON)... {}\n", response.as_ref().unwrap());
 
-        let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
+        // let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
 
         let session_resp: SessionResponse = from_str(&response.unwrap()).unwrap();
         println!("{:?}", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
