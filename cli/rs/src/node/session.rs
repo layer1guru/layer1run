@@ -11,7 +11,7 @@ use crate::utils;
 struct Registration {
     method: String,
     ip: String,
-    // age: u32,
+    release: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -32,32 +32,37 @@ pub fn new() -> String {
     // let my_list = cmd::sys::ls().expect("Oops! Could NOT retrieve My List.");
 // println!("***MY LIST*** {:?}", my_list);
 
-    let myself = cmd::sys::who_am_i();
-println!("***MYSELF*** {:?}", myself);
-    // let json_data = r#"{"action": "register", "sysinfo": "REDACTED"}"#;
+    /* Request release. */
+    let release = cmd::sys::get_release().unwrap();
+println!("RELEASE {:?}", release);
     
+    /* Request IP address. */
     let response = utils::ip::get().unwrap();
 
+    /* Set IP address. */
     let ip = &response["origin"];
 println!("IP -> {}", ip);
 
+    /* Build (registration) package. */
     let pkg = Registration {
         method: "register".to_string(),
         ip: ip.to_string(),
-        // age: 30,
+        release: release.to_string(),
     };
 
+    /* Encode to JSON. */
     let json_string = to_string(&pkg).unwrap();
 println!("***JSON*** {:?}", json_string);
 
-        let response = api::call("session", &json_string);
+    /* Make (remote) request. */
+    let response = api::call("session", &json_string);
 println!("***RESPONSE (json)*** {:?}", response);
 
-let response: RegistrationResponse = from_str(&response.unwrap()).unwrap();
+    /* Parse (registration) response. */
+    let response: RegistrationResponse = from_str(&response.unwrap()).unwrap();
 println!("***RESPONSE (session)*** {:?}", response);
 
-    /* Generate new session id. */
-    // let sessionid = Uuid::new_v4();
+    /* Set session id. */
     let sessionid = response.sessionid;
 
     println!("  NEW session created successfully!\n");

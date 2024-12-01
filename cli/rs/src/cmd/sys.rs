@@ -85,7 +85,12 @@ pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
 
-pub fn who_am_i() -> Result<String, Box<dyn std::error::Error>> {
+/**
+ * Get Release
+ *
+ * Request the system release details.
+ */
+pub fn get_release() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lsb_release")
         .arg("-a")
         // .spawn()
