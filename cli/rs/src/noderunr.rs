@@ -156,9 +156,9 @@ fn main() {
 
     node::session::new();
 
-    comm::monitor::by_session("88888888");
+    comm::monitor::by_session("7304e0e9-ca2d-43ba-9753-b7a0acaa8dc9");
 
-    panic!("Oops! What happened??");
+    // panic!("Oops! What happened??");
 
     // comm::make_request();
 

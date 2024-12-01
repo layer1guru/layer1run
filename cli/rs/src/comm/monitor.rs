@@ -12,16 +12,38 @@ const L1GURU_ENDPOINT: &str = "https://layer1.guru/v1/";
 #[derive(Serialize)]
 struct Session {
     sessionid: String,
-    since: u32,
+    since: u32, // seconds
 }
 
-#[derive(Deserialize)]
-#[derive(Debug)]
+#[derive(Debug, Deserialize)]
+struct Action {
+    actionid: Option<String>,
+    body: Option<String>,
+    target: Option<String>,
+    created_at: u64, // milliseconds
+}
+
+#[derive(Debug, Deserialize)]
+struct Log {
+    body: String,
+    created_at: u64, // milliseconds
+}
+
+#[derive(Debug, Deserialize)]
+struct Request {
+    body: String,
+    created_at: u64, // milliseconds
+}
+
+#[derive(Debug, Deserialize)]
 struct SessionResponse {
-    _id: String,
     sessionid: String,
-    since: u32,
-    created_at: u32,
+    act: Option<Vec<Action>>,
+    log: Option<Vec<Action>>,
+    req: Option<Vec<Request>>,
+    res: Option<Vec<Action>>,
+    rpt: Option<Vec<Action>>,
+    created_at: u32, // seconds
 }
 
 
@@ -57,7 +79,7 @@ async fn request_json(_sessionid: &str) -> Result<String, Box<dyn std::error::Er
 
 
 pub fn by_session(_sessionid: &str) {
-    println!("  Waiting for a remote command...\n");
+    println!("\n  Waiting for Client command...");
 
     /* Start inifinite loop. */
     loop {
@@ -68,17 +90,18 @@ pub fn by_session(_sessionid: &str) {
         
         assert!(now.elapsed() >= ten_seconds);
 
-        println!("  waiting...\n");
-
+        /* Make (remote) JSON (data) request. */
         let response = request_json(_sessionid);
-        println!("  waiting (JSON)... {}\n", response.as_ref().unwrap());
+        // println!("\n  ...handler -> {}", response.as_ref().unwrap());
 
         // let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
 
         let session_resp: SessionResponse = from_str(&response.unwrap()).unwrap();
-        println!("{:?}", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
-        println!("ID -> {}", session_resp._id);
-        println!("NODE ID -> {}", session_resp.sessionid);
-        println!("CREATED -> {}", session_resp.created_at);
+        println!("\n---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
+
+        println!("  SESSION ID -> {}", session_resp.sessionid);
+        println!("  ACTION -> {:?}", session_resp.act);
+        println!("  REQUEST -> {:?}", session_resp.req);
+        println!("  CREATED -> {}", session_resp.created_at);
     }
 }
