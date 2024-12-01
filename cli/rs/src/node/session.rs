@@ -28,10 +28,6 @@ struct RegistrationResponse {
  * Request a new session from the API server.
  */
 pub fn new() -> String {
-    // utils::logger::test_log();
-    // let my_list = cmd::sys::ls().expect("Oops! Could NOT retrieve My List.");
-// println!("***MY LIST*** {:?}", my_list);
-
     /* Request release. */
     let release = cmd::sys::get_release().unwrap();
 // println!("RELEASE {:?}", release);

@@ -6,6 +6,8 @@ use std::{thread, time};
 use tokio::io::AsyncWriteExt;
 use tokio_stream::StreamExt;
 
+use crate::cmd;
+
 #[derive(Debug, Deserialize)]
 struct Action {
     actionid: Option<String>,
@@ -81,6 +83,25 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
     Ok(response_body)
 }
 
+fn _handle_exec(_resp: Vec<Request>) {
+println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
+
+    /* Validate response. */
+    if (_resp.len() > 0) {
+        println!("\n***HANDLING (VEC) EXEC {:?}", _resp[0].exec);
+
+        // if (session_resp.req) {
+    //     println!("\nEXEC-2 -> {:?}", session_resp.req.unwrap());
+    // }
+            // if (session_resp.req.unwrap().exec) {
+    
+                // utils::logger::test_log();
+                let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
+    println!("\nLS -> {:?}", sys_ls);
+            // }
+    
+    }
+}
 
 pub fn by_session(_sessionid: &str) {
     println!("\n  Waiting for Client command...");
@@ -117,5 +138,11 @@ pub fn by_session(_sessionid: &str) {
             /* Update last since. */
             LAST_SINCE = session_resp.last_since
         }
+
+println!("\nEXEC-1 -> {:?}", session_resp.req);
+match session_resp.req {
+    Some(resp) => _handle_exec(resp),
+    None => println!("\nFOUND NOTHING..."),
+}
     }
 }
