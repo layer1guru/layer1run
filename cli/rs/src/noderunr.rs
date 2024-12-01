@@ -56,21 +56,34 @@ fn main() {
     // let args = Args::parse();
 
     /* Handle application arguments. */
-    let matches = App::new("L1 NodΞRunr")
+    let matches = App::new("NodΞRunr")
         .version(noderunr::get_version().as_str())
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
-        .arg(Arg::with_name("seed")
+        .arg(Arg::with_name("sid")
             .required(false)
             .takes_value(true)
             .index(1)
+            .help("connect to an existing session"))
+        .arg(Arg::with_name("seed")
+            .required(false)
+            .takes_value(true)
+            .index(2)
             .help("12 or 24 word seed phrase"))
         .arg(Arg::with_name("url")
             .required(false)
             .takes_value(true)
-            .index(2)
-            .help("url to download"))
+            .index(3)
+            .help("url of node viewer"))
         .get_matches();
+
+    /* Handle session id. */
+    let sid = matches
+        .value_of("sid")
+        .unwrap_or("");
+    if !sid.is_empty() {
+        println!("  Session ID is [ {} ]\n", sid);
+    }
 
     /* Handle (master) seed. */
     let seed = matches
@@ -126,25 +139,8 @@ fn main() {
     //     }
     // }
 
-    // let a = 100;
-    // let b = 200;
-    // println!("  Result is {}\n", a + b);
-    // assert_eq!((a + b), 300);
-
-    // let arr:[i32;4] = [1,2,3,4];
-    // println!("  Array size is {}\n", arr.len());
-
     // let my_sqr = crypto::math::sqr(4.0);
     // println!("  Square is {}\n", my_sqr);
-
-    // let j = 10;
-    // let res1 = by_ref(&j);
-    // let res2 = by_ref(&42);
-    // println!("\nReferences are [ {} ] and [ {} ]", res1, res2);
-
-    // let mut res3 = 0.0;
-    // modifies(&mut res3);
-    // println!("\nModified value to {}", res3);
 
     // env_logger::init();
     // info!("starting up");
@@ -160,7 +156,7 @@ fn main() {
 
     node::session::new();
 
-    comm::monitor::cmd("1337");
+    comm::monitor::by_session("88888888");
 
     panic!("Oops! What happened??");
 

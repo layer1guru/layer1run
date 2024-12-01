@@ -1,8 +1,8 @@
 [package]
 name = "noderunr"
-version = "24.11.28"
-authors = ["Shomari <nyusternie@protonmail.com>"]
-description = "L1 NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
+version = "24.11.30"
+authors = ["L1 GÜRŲ -- https://x.com/0xShomari"]
+description = "NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
 homepage = "https://layer1.run"
 repository = "https://github.com/nyusternie/layer1run"
 categories = ["blockchain", "cryptocurrency"]

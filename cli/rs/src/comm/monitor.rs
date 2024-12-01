@@ -56,7 +56,7 @@ async fn request_json(_sessionid: &str) -> Result<String, Box<dyn std::error::Er
 }
 
 
-pub fn cmd(_sessionid: &str) {
+pub fn by_session(_sessionid: &str) {
     println!("  Waiting for a remote command...\n");
 
     /* Start inifinite loop. */

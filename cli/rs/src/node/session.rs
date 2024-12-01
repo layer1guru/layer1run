@@ -3,6 +3,7 @@ use serde_json::{json, to_string};
 use uuid::Uuid;
 
 use crate::api;
+use crate::comm;
 use crate::cmd;
 use crate::utils;
 
