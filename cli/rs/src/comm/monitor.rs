@@ -112,5 +112,10 @@ pub fn by_session(_sessionid: &str) {
         println!("     REQUEST -> {:?}", session_resp.req);
         println!("     CREATED -> {}", session_resp.created_at);
         println!("  LAST SINCE -> {}", session_resp.last_since);
+
+        unsafe {
+            /* Update last since. */
+            LAST_SINCE = session_resp.last_since
+        }
     }
 }
