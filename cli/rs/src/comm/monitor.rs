@@ -10,16 +10,16 @@ use tokio_stream::StreamExt;
 const L1GURU_ENDPOINT: &str = "https://layer1.guru/v1/";
 
 #[derive(Serialize)]
-struct Node {
-    nodeid: String,
+struct Session {
+    sessionid: String,
     since: u32,
 }
 
 #[derive(Deserialize)]
 #[derive(Debug)]
-struct NodeResponse {
+struct SessionResponse {
     _id: String,
-    nodeid: String,
+    sessionid: String,
     since: u32,
     created_at: u32,
 }
@@ -31,16 +31,16 @@ struct NodeResponse {
  * Make a (remote) API call.
  */
 #[tokio::main]
-async fn request_json(_nodeid: &str) -> Result<String, Box<dyn std::error::Error>> {
+async fn request_json(_sessionid: &str) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
-    let url = format!("{}{}", L1GURU_ENDPOINT, "node");
+    let url = format!("{}{}", L1GURU_ENDPOINT, "session");
 
-    let node = Node {
-        nodeid: _nodeid.to_string(),
+    let session = Session {
+        sessionid: _sessionid.to_string(),
         since: 0,
     };
 
-    let json_string = to_string(&node).unwrap();
+    let json_string = to_string(&session).unwrap();
 
     let client = reqwest::Client::new();
     let response = client.post(url)
@@ -56,7 +56,7 @@ async fn request_json(_nodeid: &str) -> Result<String, Box<dyn std::error::Error
 }
 
 
-pub fn cmd(_nodeid: &str) {
+pub fn cmd(_sessionid: &str) {
     println!("  Waiting for a remote command...\n");
 
     /* Start inifinite loop. */
@@ -70,15 +70,15 @@ pub fn cmd(_nodeid: &str) {
 
         println!("  waiting...\n");
 
-        let response = request_json(_nodeid);
+        let response = request_json(_sessionid);
         // println!("  waiting (JSON)... {}\n", response.unwrap());
 
-        let json_string = r#"{"_id":"some-id","nodeid":"Jane Doe","since":25,"created_at":123}"#;
+        let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
 
-        let node_resp: NodeResponse = from_str(&response.unwrap()).unwrap();
-        println!("{:?}", node_resp); // Output: Person { name: "Jane Doe", age: 25 }
-        println!("ID -> {}", node_resp._id);
-        println!("NODE ID -> {}", node_resp.nodeid);
-        println!("CREATED -> {}", node_resp.created_at);
+        let session_resp: SessionResponse = from_str(&response.unwrap()).unwrap();
+        println!("{:?}", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
+        println!("ID -> {}", session_resp._id);
+        println!("NODE ID -> {}", session_resp.sessionid);
+        println!("CREATED -> {}", session_resp.created_at);
     }
 }

@@ -7,7 +7,7 @@ use crate::cmd;
 use crate::utils;
 
 #[derive(Serialize)]
-struct Node {
+struct Action {
     action: String,
     pkg: String,
     // age: u32,
@@ -21,7 +21,7 @@ pub fn new() -> String {
     println!("  [ {} ]\n", sessionid);
 
     println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
-    println!("  https://layer1.run/{}\n", sessionid);
+    println!("  https://layer1.run/node/#/{}\n", sessionid);
 
     // FOR DEVELOPMENT ONLY
     // println!("createdAt {:#}\n", utils::epoch::ms());
@@ -35,13 +35,13 @@ println!("***MY LIST*** {:?}", my_list);
 println!("***MYSELF*** {:?}", myself);
     // let json_data = r#"{"action": "register", "sysinfo": "REDACTED"}"#;
     
-    let node = Node {
+    let action = Action {
         action: "register".to_string(),
-        pkg: my_list,
+        pkg: myself.unwrap(),
         // age: 30,
     };
 
-    let json_string = to_string(&node).unwrap();
+    let json_string = to_string(&action).unwrap();
 
     // let json_data = format!(r#"{"action": "register", "sysinfo": "REDA"}"#, 
     //     myself.unwrap_or("FAILED! Myself...".to_string()));
