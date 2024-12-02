@@ -60,12 +60,12 @@ pub fn ping2() {
 }
 
 pub fn avalanche() -> Result<String, Box<dyn std::error::Error>> {
+    /* Initialize locals. */
     let mut response;
 
     let output = Command::new("avalanche")
         // .arg("-l")
         .output();
-        // .expect("failed to execute process");
     
     match output {
         Ok(ref out) => {
@@ -73,6 +73,26 @@ pub fn avalanche() -> Result<String, Box<dyn std::error::Error>> {
         },
         Err(ref err) => {
             response = format!("ERROR: {:?}", err.to_string());
+        },
+    };
+
+    Ok(response)
+}
+
+pub fn install_avalanche() -> Result<String, Box<dyn std::error::Error>> {
+    /* Initialize locals. */
+    let mut response;
+
+    let output = Command::new("avalanche")
+        // .arg("-l")
+        .output();
+    
+    match output {
+        Ok(ref out) => {
+            response = String::from_utf8_lossy(&output.unwrap().stdout).to_string();
+        },
+        Err(ref err) => {
+            response = format!("ERROR! {:?}", err.to_string());
         },
     };
 

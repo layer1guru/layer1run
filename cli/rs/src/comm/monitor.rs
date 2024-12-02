@@ -132,14 +132,7 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
 
         if (exec == "avax" || exec == "avalanche") {
             let sys_avalanche = cmd::sys::avalanche().expect("Oops! Could NOT execute `avax`.");
-println!("AVALANCHE -> {:?}", sys_avalanche);
             response_json(_sessionid, sys_avalanche);
-        }
-
-        if (exec == "fdisk") {
-            let sys_fdisk = cmd::sys::fdisk().expect("Oops! Could NOT execute `fdisk`.");
-println!("FDISK -> {:?}", sys_fdisk);
-            response_json(_sessionid, sys_fdisk);
         }
 
         if (exec == "ls") {
@@ -171,6 +164,36 @@ println!("FDISK -> {:?}", sys_fdisk);
             let sys_uname = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
             response_json(_sessionid, sys_uname);
         }
+
+        /*************************************/
+        /* UNIMPLEMENTED */
+        /*************************************/
+
+        if (exec == "arb" || exec == "arbitrum") {
+            let unimplemented = "ERROR! Arbitrum is NOT implemented.".to_string();
+            response_json(_sessionid, unimplemented);
+        }
+
+        if (exec == "base") {
+            let unimplemented = "ERROR! Base is NOT implemented.".to_string();
+            response_json(_sessionid, unimplemented);
+        }
+
+        if (exec == "nexa") {
+            let unimplemented = "ERROR! Nexa is NOT implemented.".to_string();
+            response_json(_sessionid, unimplemented);
+        }
+
+        if (exec == "op" || exec == "optimism") {
+            let unimplemented = "ERROR! Optimism is NOT implemented.".to_string();
+            response_json(_sessionid, unimplemented);
+        }
+
+        if (exec == "sol" || exec == "solana") {
+            let unimplemented = "ERROR! Solana is NOT implemented.".to_string();
+            response_json(_sessionid, unimplemented);
+        }
+
     
     }
 }
