@@ -59,12 +59,65 @@ pub fn ping2() {
     // io::stderr().write_all(&mut stderr).unwrap();
 }
 
+pub fn avalanche() -> Result<String, Box<dyn std::error::Error>> {
+    let mut response;
+
+    let output = Command::new("avalanche")
+        // .arg("-l")
+        .output();
+        // .expect("failed to execute process");
+    
+    match output {
+        Ok(ref out) => {
+            response = String::from_utf8_lossy(&output.unwrap().stdout).to_string();
+        },
+        Err(ref err) => {
+            response = format!("ERROR: {:?}", err.to_string());
+        },
+    };
+
+    Ok(response)
+}
+
+pub fn fdisk() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("fdisk")
+        .arg("-l")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("ls")
         // .arg("~")
         .arg("/home")
         .arg("-l")
         .arg("-a")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn lsblk() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("lsblk")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("lscpu")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("lshw")
         .output()
         .expect("failed to execute process");
 

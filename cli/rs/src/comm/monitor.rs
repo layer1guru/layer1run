@@ -122,32 +122,53 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
  }
 
 fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
-println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
+// println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
 
     /* Validate response. */
     if (_resp.len() > 0) {
         let exec = &_resp[0].exec;
 
-        println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
+        // println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
+
+        if (exec == "avax" || exec == "avalanche") {
+            let sys_avalanche = cmd::sys::avalanche().expect("Oops! Could NOT execute `avax`.");
+println!("AVALANCHE -> {:?}", sys_avalanche);
+            response_json(_sessionid, sys_avalanche);
+        }
+
+        if (exec == "fdisk") {
+            let sys_fdisk = cmd::sys::fdisk().expect("Oops! Could NOT execute `fdisk`.");
+println!("FDISK -> {:?}", sys_fdisk);
+            response_json(_sessionid, sys_fdisk);
+        }
 
         if (exec == "ls") {
             let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
-println!("\nLS -> {:?}", sys_ls);
-
             response_json(_sessionid, sys_ls);
+        }
+
+        if (exec == "lsblk") {
+            let sys_lsblk = cmd::sys::lsblk().expect("Oops! Could NOT execute `lsblk`.");
+            response_json(_sessionid, sys_lsblk);
+        }
+
+        if (exec == "lscpu") {
+            let sys_lscpu = cmd::sys::lscpu().expect("Oops! Could NOT execute `lscpu`.");
+            response_json(_sessionid, sys_lscpu);
+        }
+
+        if (exec == "lshw") {
+            let sys_lshw = cmd::sys::lshw().expect("Oops! Could NOT execute `lshw`.");
+            response_json(_sessionid, sys_lshw);
         }
 
         if (exec == "ps") {
             let sys_ps = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
-println!("\nPS -> {:?}", sys_ps);
-
             response_json(_sessionid, sys_ps);
         }
     
         if (exec == "uname") {
-            let sys_uname = cmd::sys::get_uname().expect("Oops! Could NOT execute `top`.");
-println!("\nUNAME -> {:?}", sys_uname);
-
+            let sys_uname = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
             response_json(_sessionid, sys_uname);
         }
     
