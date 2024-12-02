@@ -60,16 +60,6 @@ pub fn ping2() {
 }
 
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
-    // let output = Command::new("ls")
-    //     .arg("-l")
-    //     .spawn()
-    //     .expect("ls command failed to start")
-    //     .wait_with_output()
-    //     .expect("ls command failed to complete");
-
-    // println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
-
     let output = Command::new("ls")
         // .arg("~")
         .arg("/home")
@@ -78,9 +68,23 @@ pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
         .output()
         .expect("failed to execute process");
 
-    println!("status: {}", output.status);
-    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn ps() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("ps")
+        .arg("aux")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn get_uname() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("uname")
+        .arg("-a")
+        .output()
+        .expect("failed to execute process");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
@@ -93,12 +97,8 @@ pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
 pub fn get_release() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lsb_release")
         .arg("-a")
-        // .spawn()
-        // .expect("lsb_release command failed to start")
-        // .wait_with_output()
         .output()
         .expect("lsb_release command failed to complete");
 
-    // Ok(String::from_utf8_lossy(&output.stdout).to_string())
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }

