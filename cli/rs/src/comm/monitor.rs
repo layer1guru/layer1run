@@ -16,6 +16,13 @@ struct Action {
     created_at: u64, // milliseconds
 }
 
+#[derive(Debug, Serialize)]
+struct ExecResponse {
+    sessionid: String,
+    method: String,
+    resp: String,
+}
+
 #[derive(Debug, Deserialize)]
 struct Log {
     body: String,
@@ -54,7 +61,7 @@ static mut LAST_SINCE: u64 = 1;
 
 
 /**
- * Call
+ * Request JSON
  *
  * Make a (remote) API call.
  */
@@ -83,22 +90,53 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
     Ok(response_body)
 }
 
-fn _handle_exec(_resp: Vec<Request>) {
+/**
+ * Respond JSON
+ *
+ * Make a (remote) API response.
+ */
+ #[tokio::main]
+ async fn response_json(_sessionid: &str, _response: String) -> Result<String, Box<dyn std::error::Error>> {
+     /* Set URL (for remote API). */
+     let url = format!("{}{}", L1GURU_ENDPOINT, "session");
+ 
+     let exec_response = ExecResponse {
+         sessionid: _sessionid.to_string(),
+         method: "res".to_string(),
+         resp: _response,
+     };
+ 
+     let json_string = to_string(&exec_response).unwrap();
+ 
+     let client = reqwest::Client::new();
+     let response = client.post(url)
+         .header("Content-Type", "application/json")
+         .body(json_string.to_string())
+         .send()
+         .await?;
+ 
+     let response_body = response.text().await?;
+ 
+     /* Return response. */
+     Ok(response_body)
+ }
+
+fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
 println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
 
     /* Validate response. */
     if (_resp.len() > 0) {
-        println!("\n***HANDLING (VEC) EXEC {:?}", _resp[0].exec);
+        let exec = &_resp[0].exec;
 
-        // if (session_resp.req) {
-    //     println!("\nEXEC-2 -> {:?}", session_resp.req.unwrap());
-    // }
-            // if (session_resp.req.unwrap().exec) {
-    
-                // utils::logger::test_log();
-                let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
-    println!("\nLS -> {:?}", sys_ls);
-            // }
+        println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
+
+        if (exec == "ls") {
+            let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
+println!("\nLS -> {:?}", sys_ls);
+
+            let response = response_json(_sessionid, sys_ls);
+println!("\nUPDATE API -> {:?}", response);
+        }
     
     }
 }
@@ -126,8 +164,9 @@ pub fn by_session(_sessionid: &str) {
         // let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
 
         let session_resp: SessionResponse = from_str(&response.unwrap()).unwrap();
-        println!("\n---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
+        // println!("\n---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
 
+        println!("");
         println!("  SESSION ID -> {}", session_resp.sessionid);
         println!("      ACTION -> {:?}", session_resp.act);
         println!("     REQUEST -> {:?}", session_resp.req);
@@ -139,10 +178,10 @@ pub fn by_session(_sessionid: &str) {
             LAST_SINCE = session_resp.last_since
         }
 
-println!("\nEXEC-1 -> {:?}", session_resp.req);
-match session_resp.req {
-    Some(resp) => _handle_exec(resp),
-    None => println!("\nFOUND NOTHING..."),
-}
+// println!("\nEXEC-1 -> {:?}", session_resp.req);
+        match session_resp.req {
+            Some(resp) => _handle_exec(&session_resp.sessionid, resp),
+            None => (),
+        }
     }
 }
