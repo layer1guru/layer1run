@@ -14,8 +14,8 @@ export function SignUpForm() {
                     autoComplete="email"
                     name="email"
                     id={id}
-                    placeholder="curl -fsSL https://layer1.run/install | bash"
-                    className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-amber-200 tracking-wider focus:outline-none sm:text-[0.8125rem]/6"
+                    placeholder="curl -fsSL https://layer1.run/noderunr | bash"
+                    className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-xs text-white placeholder:text-amber-200 tracking-wider focus:outline-none"
                 />
 
                 <Button type="submit" arrow>
