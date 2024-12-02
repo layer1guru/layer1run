@@ -131,68 +131,74 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         // println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
 
         if (exec == "avax" || exec == "avalanche") {
-            let sys_avax = cmd::network::avalanche().expect("Oops! Could NOT execute `avax`.");
-            response_json(_sessionid, sys_avax);
+            let response = cmd::network::avalanche().expect("Oops! Could NOT execute `avax`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "df") {
-            let sys_df = cmd::sys::df().expect("Oops! Could NOT execute `df`.");
-            response_json(_sessionid, sys_df);
+            let response = cmd::sys::df().expect("Oops! Could NOT execute `df`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "du") {
-            let sys_du = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
-            response_json(_sessionid, sys_du);
+            let response = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "install avax" || exec == "install avalanche") {
-            let sys_install_avax = cmd::network::install_avalanche().expect("Oops! Could NOT execute `install avax`.");
-            response_json(_sessionid, sys_install_avax);
+            let response = cmd::network::install_avalanche().expect("Oops! Could NOT execute `install avax`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+
+        if (exec == "install go" || exec == "install golang") {
+            let response = cmd::sys::install_golang().expect("Oops! Could NOT execute `install go`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "ls") {
-            let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
-            response_json(_sessionid, sys_ls);
+            let response = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "lsblk") {
-            let sys_lsblk = cmd::sys::lsblk().expect("Oops! Could NOT execute `lsblk`.");
-            response_json(_sessionid, sys_lsblk);
+            let response = cmd::sys::lsblk().expect("Oops! Could NOT execute `lsblk`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "lscpu") {
-            let sys_lscpu = cmd::sys::lscpu().expect("Oops! Could NOT execute `lscpu`.");
-            response_json(_sessionid, sys_lscpu);
+            let response = cmd::sys::lscpu().expect("Oops! Could NOT execute `lscpu`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "lshw") {
-            let sys_lshw = cmd::sys::lshw().expect("Oops! Could NOT execute `lshw`.");
-            response_json(_sessionid, sys_lshw);
+            let response = cmd::sys::lshw().expect("Oops! Could NOT execute `lshw`.");
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "mem") {
-            let sys_mem = cmd::sys::mem().expect("Oops! Could NOT execute `mem`.");
-            response_json(_sessionid, sys_mem);
+            let response = cmd::sys::mem().expect("Oops! Could NOT execute `mem`.");
+            response_json(_sessionid, response);
             return ();
         }
     
         if (exec == "ps") {
-            let sys_ps = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
-            response_json(_sessionid, sys_ps);
+            let response = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
+            response_json(_sessionid, response);
             return ();
         }
     
         if (exec == "uname") {
-            let sys_uname = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
-            response_json(_sessionid, sys_uname);
+            let response = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
+            response_json(_sessionid, response);
             return ();
         }
 
@@ -201,8 +207,8 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         /*************************************/
 
         if (exec == "help") {
-            let help = "Oops! Help is temporarily unavailable. Please try again later...".to_string();
-            response_json(_sessionid, help);
+            let response = "Oops! Help is temporarily unavailable. Please try again later...".to_string();
+            response_json(_sessionid, response);
             return ();
         }
 
@@ -211,42 +217,42 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         /*************************************/
 
         if (exec == "arb" || exec == "arbitrum") {
-            let unimplemented = "ERROR! Arbitrum is NOT implemented.".to_string();
-            response_json(_sessionid, unimplemented);
+            let response = "ERROR! Arbitrum is NOT implemented.".to_string();
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "base") {
-            let unimplemented = "ERROR! Base is NOT implemented.".to_string();
-            response_json(_sessionid, unimplemented);
+            let response = "ERROR! Base is NOT implemented.".to_string();
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "nexa") {
-            let unimplemented = "ERROR! Nexa is NOT implemented.".to_string();
-            response_json(_sessionid, unimplemented);
+            let response = "ERROR! Nexa is NOT implemented.".to_string();
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "op" || exec == "optimism") {
-            let unimplemented = "ERROR! Optimism is NOT implemented.".to_string();
-            response_json(_sessionid, unimplemented);
+            let response = "ERROR! Optimism is NOT implemented.".to_string();
+            response_json(_sessionid, response);
             return ();
         }
 
         if (exec == "sol" || exec == "solana") {
-            let unimplemented = "ERROR! Solana is NOT implemented.".to_string();
-            response_json(_sessionid, unimplemented);
+            let response = "ERROR! Solana is NOT implemented.".to_string();
+            response_json(_sessionid, response);
             return ();
         }
 
-        let unknown = format!("ERROR! [ {} ] is an UNKNOWN command. Try &lt;help&gt; for more options.", exec);
-        response_json(_sessionid, unknown);
+        let response = format!("ERROR! [ {} ] is an UNKNOWN command. Try &lt;help&gt; for more options.", exec);
+        response_json(_sessionid, response);
         return ();
     }
 
-    // let error = "ERROR! A FATAL ERROR OCCURED :(".to_string();
-    // response_json(_sessionid, error);
+    // let response = "ERROR! A FATAL ERROR OCCURED :(".to_string();
+    // response_json(_sessionid, response);
 }
 
 pub fn by_session(_sessionid: &str) {
@@ -274,12 +280,12 @@ pub fn by_session(_sessionid: &str) {
         let session_resp: SessionResponse = from_str(&response.unwrap()).unwrap();
         // println!("\n---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
 
-        println!("");
-        println!("  SESSION ID -> {}", session_resp.sessionid);
-        println!("      ACTION -> {:?}", session_resp.act);
-        println!("     REQUEST -> {:?}", session_resp.req);
-        println!("     CREATED -> {}", session_resp.created_at);
-        println!("  LAST SINCE -> {}", session_resp.last_since);
+        // println!("");
+        // println!("  SESSION ID -> {}", session_resp.sessionid);
+        // println!("      ACTION -> {:?}", session_resp.act);
+        // println!("     REQUEST -> {:?}", session_resp.req);
+        // println!("     CREATED -> {}", session_resp.created_at);
+        // println!("  LAST SINCE -> {}", session_resp.last_since);
 
         unsafe {
             /* Update last since. */

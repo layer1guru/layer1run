@@ -28,18 +28,26 @@ struct RegistrationResponse {
  * Request a new session from the API server.
  */
 pub fn new() -> String {
+    /* Initialize locals. */
+    let mut ip;
+
     /* Request release. */
     let release = cmd::sys::get_release().unwrap();
 // println!("RELEASE {:?}", release);
     
     /* Request IP address. */
-    let response = utils::ip::get().unwrap();
-
-// FIXME Handle (match) failed IP request.
+    let response = utils::ip::get();
 
     /* Set IP address. */
-    let ip = &response["origin"];
-// println!("IP -> {}", ip);
+    match response {
+        Ok(_resp) => {
+            ip = _resp["origin"].clone();
+        },
+        Err(err) => {
+            ip = err.to_string();
+        }
+    }    
+println!("\nIP -> {:?}", ip);
 
     /* Build (registration) package. */
     let pkg = Registration {

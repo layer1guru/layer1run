@@ -2,6 +2,9 @@
 use std::io::{BufReader, BufRead};
 use std::io::{self, Write};
 use std::process::{Command, Stdio};
+use std::thread::sleep;
+use std::time::Duration;
+use interactive_process::InteractiveProcess;
 
 /**
  * Ping
@@ -80,40 +83,76 @@ pub fn avalanche() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn install_avalanche() -> Result<String, Box<dyn std::error::Error>> {
-    /* Initialize locals. */
-    let mut response;
+    // /* Initialize locals. */
+    let mut response: String = "".to_string();
 
-    let cmd1 = Command::new("cd")
-        .arg("/tmp");
+    let mut cmd = Command::new("bash");
 
-    let cmd2 = Command::new("mkdir")
-        .arg("noderunr");
+    /// Pass this command to `InteractiveProcess`, along with a
+    /// callback. In this case, we'll print every line that the
+    /// process prints to `stdout`, prefixed by "Got: ".
+    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
+        println!("Got: {}", line.unwrap());
+    })
+    .unwrap();
 
-    let cmd3 = Command::new("cd")
-        .arg("noderunr");
+    /* Change to (home) directory. */
+    proc.send("cd").unwrap();
+    sleep(Duration::from_secs(1));
 
-    let cmd4 = Command::new("git")
-        .arg("clone")
-        .arg("https://github.com/ava-labs/avalanchego.git");
+    /* Make (hidden) .noderunr directory (if required). */
+    proc.send("mkdir -p .noderunr").unwrap();
+    sleep(Duration::from_secs(1));
 
-    let cmd = cmd1
-        .command("&&").unwrap()
-        .join(cmd2)
-        .command("&&").unwrap()
-        .join(cmd3)
-        .command("&&").unwrap()
-        .join(cmd4);
+    /* Change to noderunr directory. */
+    proc.send("cd .noderunr").unwrap();
+    sleep(Duration::from_secs(1));
 
-    let output = cmd.output();
+    proc.send("wget https://go.dev/dl/go1.23.3.linux-amd64.tar.gz").unwrap();
+    sleep(Duration::from_millis(1));
+
+    // proc.send("git clone https://github.com/ava-labs/avalanchego.git").unwrap();
+    // sleep(Duration::from_millis(1));
+
+    // proc.send("echo \"wonderful!\" > done").unwrap();
+    // sleep(Duration::from_millis(1));
+
+    /// We're done with the process, but it is not self-terminating,
+    /// so we can't use `proc.wait()`. Instead, we'll take the `Child` from
+    /// the `InteractiveProcess` and kill it ourselves.
+    proc.close().kill().unwrap();
+
+    // let cmd1 = Command::new("cd")
+    //     .arg("/tmp");
+
+    // let cmd2 = Command::new("mkdir")
+    //     .arg("noderunr");
+
+    // let cmd3 = Command::new("cd")
+    //     .arg("noderunr");
+
+    // let cmd4 = Command::new("git")
+    //     .arg("clone")
+    //     .arg("https://github.com/ava-labs/avalanchego.git");
+
+    // let cmd = cmd1
+    //     .command("&&").unwrap()
+    //     .join(cmd2)
+    //     .command("&&").unwrap()
+    //     .join(cmd3)
+    //     .command("&&").unwrap()
+    //     .join(cmd4);
+
+    // let output = cmd.output();
     
-    match output {
-        Ok(ref out) => {
-            response = String::from_utf8_lossy(&output.unwrap().stdout).to_string();
-        },
-        Err(ref err) => {
-            response = format!("ERROR! {:?}", err.to_string());
-        },
-    };
+    // match output {
+    //     Ok(ref out) => {
+    //         response = String::from_utf8_lossy(&output.unwrap().stdout).to_string();
+    //     },
+    //     Err(ref err) => {
+    //         response = format!("ERROR! {:?}", err.to_string());
+    //     },
+    // };
 
     Ok(response)
 }
