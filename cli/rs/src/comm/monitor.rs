@@ -148,6 +148,12 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
             return ();
         }
 
+        if (exec == "avax status" || exec == "avalanche status") {
+            let response = cmd::network::avax_status().expect("Oops! Could NOT execute `avax_status`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+
         if (exec == "build avax" || exec == "build avalanche") {
             let response = cmd::network::build_avalanche().expect("Oops! Could NOT execute `install avax`.");
             response_json(_sessionid, response);
