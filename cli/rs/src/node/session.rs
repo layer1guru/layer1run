@@ -35,6 +35,8 @@ pub fn new() -> String {
     /* Request IP address. */
     let response = utils::ip::get().unwrap();
 
+// FIXME Handle (match) failed IP request.
+
     /* Set IP address. */
     let ip = &response["origin"];
 // println!("IP -> {}", ip);

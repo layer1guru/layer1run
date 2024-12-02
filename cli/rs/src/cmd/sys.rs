@@ -108,6 +108,26 @@ pub fn fdisk() -> Result<String, Box<dyn std::error::Error>> {
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
 
+pub fn df() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("df")
+        .arg("-h")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn du() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("du")
+        .arg("-hd")
+        .arg("2")
+        .arg("/home")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("ls")
         // .arg("~")
@@ -138,6 +158,15 @@ pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
 
 pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lshw")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn mem() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("free")
+        .arg("-h")
         .output()
         .expect("failed to execute process");
 

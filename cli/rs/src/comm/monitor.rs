@@ -133,36 +133,71 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         if (exec == "avax" || exec == "avalanche") {
             let sys_avalanche = cmd::sys::avalanche().expect("Oops! Could NOT execute `avax`.");
             response_json(_sessionid, sys_avalanche);
+            return ();
+        }
+
+        if (exec == "df") {
+            let sys_df = cmd::sys::df().expect("Oops! Could NOT execute `df`.");
+            response_json(_sessionid, sys_df);
+            return ();
+        }
+
+        if (exec == "du") {
+            let sys_du = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
+            response_json(_sessionid, sys_du);
+            return ();
         }
 
         if (exec == "ls") {
             let sys_ls = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
             response_json(_sessionid, sys_ls);
+            return ();
         }
 
         if (exec == "lsblk") {
             let sys_lsblk = cmd::sys::lsblk().expect("Oops! Could NOT execute `lsblk`.");
             response_json(_sessionid, sys_lsblk);
+            return ();
         }
 
         if (exec == "lscpu") {
             let sys_lscpu = cmd::sys::lscpu().expect("Oops! Could NOT execute `lscpu`.");
             response_json(_sessionid, sys_lscpu);
+            return ();
         }
 
         if (exec == "lshw") {
             let sys_lshw = cmd::sys::lshw().expect("Oops! Could NOT execute `lshw`.");
             response_json(_sessionid, sys_lshw);
+            return ();
         }
 
+        if (exec == "mem") {
+            let sys_mem = cmd::sys::mem().expect("Oops! Could NOT execute `mem`.");
+            response_json(_sessionid, sys_mem);
+            return ();
+        }
+    
         if (exec == "ps") {
             let sys_ps = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
             response_json(_sessionid, sys_ps);
+            return ();
         }
     
         if (exec == "uname") {
             let sys_uname = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
             response_json(_sessionid, sys_uname);
+            return ();
+        }
+
+        /*************************************/
+        /* HELP */
+        /*************************************/
+
+        if (exec == "help") {
+            let help = "Oops! Help is temporarily unavailable. Please try again later...".to_string();
+            response_json(_sessionid, help);
+            return ();
         }
 
         /*************************************/
@@ -172,30 +207,40 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         if (exec == "arb" || exec == "arbitrum") {
             let unimplemented = "ERROR! Arbitrum is NOT implemented.".to_string();
             response_json(_sessionid, unimplemented);
+            return ();
         }
 
         if (exec == "base") {
             let unimplemented = "ERROR! Base is NOT implemented.".to_string();
             response_json(_sessionid, unimplemented);
+            return ();
         }
 
         if (exec == "nexa") {
             let unimplemented = "ERROR! Nexa is NOT implemented.".to_string();
             response_json(_sessionid, unimplemented);
+            return ();
         }
 
         if (exec == "op" || exec == "optimism") {
             let unimplemented = "ERROR! Optimism is NOT implemented.".to_string();
             response_json(_sessionid, unimplemented);
+            return ();
         }
 
         if (exec == "sol" || exec == "solana") {
             let unimplemented = "ERROR! Solana is NOT implemented.".to_string();
             response_json(_sessionid, unimplemented);
+            return ();
         }
 
-    
+        let unknown = format!("ERROR! [ {} ] is an UNKNOWN command. Try &lt;help&gt; for more options.", exec);
+        response_json(_sessionid, unknown);
+        return ();
     }
+
+    // let error = "ERROR! A FATAL ERROR OCCURED :(".to_string();
+    // response_json(_sessionid, error);
 }
 
 pub fn by_session(_sessionid: &str) {
