@@ -131,8 +131,8 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         // println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
 
         if (exec == "avax" || exec == "avalanche") {
-            let sys_avalanche = cmd::sys::avalanche().expect("Oops! Could NOT execute `avax`.");
-            response_json(_sessionid, sys_avalanche);
+            let sys_avax = cmd::network::avalanche().expect("Oops! Could NOT execute `avax`.");
+            response_json(_sessionid, sys_avax);
             return ();
         }
 
@@ -145,6 +145,12 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         if (exec == "du") {
             let sys_du = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
             response_json(_sessionid, sys_du);
+            return ();
+        }
+
+        if (exec == "install avax" || exec == "install avalanche") {
+            let sys_install_avax = cmd::network::install_avalanche().expect("Oops! Could NOT execute `install avax`.");
+            response_json(_sessionid, sys_install_avax);
             return ();
         }
 
