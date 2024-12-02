@@ -62,7 +62,7 @@ pub fn ping2() {
     // io::stderr().write_all(&mut stderr).unwrap();
 }
 
-pub fn avalanche() -> Result<String, Box<dyn std::error::Error>> {
+pub fn avax() -> Result<String, Box<dyn std::error::Error>> {
     /* Initialize locals. */
     let mut response;
 
@@ -82,17 +82,116 @@ pub fn avalanche() -> Result<String, Box<dyn std::error::Error>> {
     Ok(response)
 }
 
-pub fn install_avalanche() -> Result<String, Box<dyn std::error::Error>> {
+pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
     // /* Initialize locals. */
     let mut response: String = "".to_string();
 
     let mut cmd = Command::new("bash");
 
-    /// Pass this command to `InteractiveProcess`, along with a
-    /// callback. In this case, we'll print every line that the
-    /// process prints to `stdout`, prefixed by "Got: ".
     let mut proc = InteractiveProcess::new(&mut cmd, |line| {
-        println!("Got: {}", line.unwrap());
+        println!("    ↳ {}", line.unwrap());
+    })
+    .unwrap();
+
+    /* Change to (home) directory. */
+    // proc.send("cd $HOME").unwrap();
+    // sleep(Duration::from_secs(1));
+
+    /* Make (hidden) .noderunr directory (if required). */
+    proc.send("mkdir -p $HOME/.noderunr/bin").unwrap();
+    sleep(Duration::from_secs(1));
+
+    /* Change to noderunr directory. */
+    proc.send("cd $HOME/.noderunr/bin").unwrap();
+    sleep(Duration::from_secs(1));
+
+    // proc.send("curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b ./").unwrap();
+    // sleep(Duration::from_secs(1));
+
+    proc.send("export PATH=$PATH:$HOME/.noderunr/bin").unwrap();
+    sleep(Duration::from_secs(1));
+
+    proc.send("$HOME/.noderunr/bin/avalanche --help").unwrap();
+    sleep(Duration::from_secs(1));
+
+    proc.send("$HOME/.noderunr/bin/avalanche --version").unwrap();
+    // proc.send("avalanche --version").unwrap();
+    sleep(Duration::from_secs(1));
+
+    /// We're done with the process, but it is not self-terminating,
+    /// so we can't use `proc.wait()`. Instead, we'll take the `Child` from
+    /// the `InteractiveProcess` and kill it ourselves.
+    proc.close().kill().unwrap();
+
+    Ok(response)
+    
+}
+
+pub fn avax_start() -> Result<String, Box<dyn std::error::Error>> {
+    // /* Initialize locals. */
+    let mut response: String = "".to_string();
+
+    let mut cmd = Command::new("bash");
+
+    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
+        println!("    ↳ {}", line.unwrap());
+    })
+    .unwrap();
+
+    proc.send("$HOME/.noderunr/bin/avalanche network start").unwrap();
+    sleep(Duration::from_millis(10));
+
+    proc.close().kill().unwrap();
+    
+    Ok(response)
+}
+
+pub fn avax_status() -> Result<String, Box<dyn std::error::Error>> {
+    // /* Initialize locals. */
+    let mut response: String = "".to_string();
+
+    let mut cmd = Command::new("bash");
+
+    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
+        println!("    ↳ {}", line.unwrap());
+    })
+    .unwrap();
+
+    proc.send("$HOME/.noderunr/bin/avalanche network status").unwrap();
+    sleep(Duration::from_millis(10));
+
+    proc.close().kill().unwrap();
+    
+    Ok(response)
+}
+
+pub fn avax_stop() -> Result<String, Box<dyn std::error::Error>> {
+    // /* Initialize locals. */
+    let mut response: String = "".to_string();
+
+    let mut cmd = Command::new("bash");
+
+    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
+        println!("    ↳ {}", line.unwrap());
+    })
+    .unwrap();
+
+    proc.send("$HOME/.noderunr/bin/avalanche network stop").unwrap();
+    sleep(Duration::from_millis(10));
+
+    proc.close().kill().unwrap();
+    
+    Ok(response)
+}
+
+pub fn build_avalanche() -> Result<String, Box<dyn std::error::Error>> {
+    // /* Initialize locals. */
+    let mut response: String = "".to_string();
+
+    let mut cmd = Command::new("bash");
+
+    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
+        println!("    ↳ {}", line.unwrap());
     })
     .unwrap();
 
@@ -108,14 +207,20 @@ pub fn install_avalanche() -> Result<String, Box<dyn std::error::Error>> {
     proc.send("cd .noderunr").unwrap();
     sleep(Duration::from_secs(1));
 
-    proc.send("wget https://go.dev/dl/go1.23.3.linux-amd64.tar.gz").unwrap();
-    sleep(Duration::from_millis(1));
-
     // proc.send("git clone https://github.com/ava-labs/avalanchego.git").unwrap();
     // sleep(Duration::from_millis(1));
 
-    // proc.send("echo \"wonderful!\" > done").unwrap();
-    // sleep(Duration::from_millis(1));
+    proc.send("cd avalanchego").unwrap();
+    sleep(Duration::from_secs(1));
+
+    proc.send("export PATH=$PATH:$HOME/.noderunr/go/bin").unwrap();
+    sleep(Duration::from_secs(1));
+
+    proc.send("./scripts/build.sh").unwrap();
+    sleep(Duration::from_millis(1));
+
+    proc.send("./build/avalanchego").unwrap();
+    sleep(Duration::from_millis(1));
 
     /// We're done with the process, but it is not self-terminating,
     /// so we can't use `proc.wait()`. Instead, we'll take the `Child` from
@@ -156,3 +261,27 @@ pub fn install_avalanche() -> Result<String, Box<dyn std::error::Error>> {
 
     Ok(response)
 }
+
+// pub fn avalanche_check_config() -> Result<String, Box<dyn std::error::Error>> {
+//     // TODO /home/dev/.avalanchego/???
+// }
+
+// pub fn avalanche_check_db_mainnet() -> Result<String, Box<dyn std::error::Error>> {
+//     // TODO /home/dev/.avalanchego/db/mainnet
+// }
+
+// pub fn avalanche_check_logs() -> Result<String, Box<dyn std::error::Error>> {
+//     // TODO /home/dev/.avalanchego/logs
+// }
+
+// pub fn avalanche_check_plugins() -> Result<String, Box<dyn std::error::Error>> {
+//     // TODO /home/dev/.avalanchego/plugins
+// }
+
+// pub fn avalanche_check_profiles() -> Result<String, Box<dyn std::error::Error>> {
+//     // TODO /home/dev/.avalanchego/profiles
+// }
+
+// pub fn avalanche_check_staking() -> Result<String, Box<dyn std::error::Error>> {
+//     // TODO /home/dev/.avalanchego/staking
+// }

@@ -131,7 +131,25 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
         // println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
 
         if (exec == "avax" || exec == "avalanche") {
-            let response = cmd::network::avalanche().expect("Oops! Could NOT execute `avax`.");
+            let response = cmd::network::avax().expect("Oops! Could NOT execute `avax`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+
+        if (exec == "install avax" || exec == "install avalanche") {
+            let response = cmd::network::avax_install().expect("Oops! Could NOT execute `avax_install`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+
+        if (exec == "start avax" || exec == "start avalanche") {
+            let response = cmd::network::avax_start().expect("Oops! Could NOT execute `avax_start`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+
+        if (exec == "build avax" || exec == "build avalanche") {
+            let response = cmd::network::build_avalanche().expect("Oops! Could NOT execute `install avax`.");
             response_json(_sessionid, response);
             return ();
         }
@@ -144,12 +162,6 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
 
         if (exec == "du") {
             let response = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
-            response_json(_sessionid, response);
-            return ();
-        }
-
-        if (exec == "install avax" || exec == "install avalanche") {
-            let response = cmd::network::install_avalanche().expect("Oops! Could NOT execute `install avax`.");
             response_json(_sessionid, response);
             return ();
         }
@@ -256,7 +268,7 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
 }
 
 pub fn by_session(_sessionid: &str) {
-    println!("\n  Waiting for Client command...");
+    println!("\n  Waiting for Client command...\n");
 
     let mut response: Result<String, Box<dyn std::error::Error>>;
 

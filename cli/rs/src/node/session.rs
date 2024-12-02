@@ -47,7 +47,7 @@ pub fn new() -> String {
             ip = err.to_string();
         }
     }    
-println!("\nIP -> {:?}", ip);
+// println!("\nIP -> {:?}", ip);
 
     /* Build (registration) package. */
     let pkg = Registration {

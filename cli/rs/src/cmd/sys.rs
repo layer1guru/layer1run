@@ -115,7 +115,7 @@ pub fn install_golang() -> Result<String, Box<dyn std::error::Error>> {
     let mut cmd = Command::new("bash");
 
     let mut proc = InteractiveProcess::new(&mut cmd, |line| {
-        println!("Got: {}", line.unwrap());
+        println!("    ↳ {}", line.unwrap());
     })
     .unwrap();
 
