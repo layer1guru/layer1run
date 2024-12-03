@@ -62,8 +62,8 @@ export function Intro() {
             </h1>
 
             <p className="mt-4 text-sm/6 text-slate-200">
-                NodΞRunr is a lightweight, smart daemon delivering effortless SysOps for Founders and Teams —
-                assuring a SAFU space for maintaining a network of mission critical nodes from anywhere, at any time.
+                NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams —
+                assure your community of a SAFU space by maintaining your mission critical nodes from anywhere, at any time.
             </p>
 
             <p className="mt-4 font-bold text-sm/6 text-slate-200 tracking-wider">
