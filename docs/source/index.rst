@@ -16,7 +16,7 @@ Introduction
 
 NodΞRunr offers Founders and Teams a SAFU space for maintaining a network of mission critical nodes from anywhere, at any time.
 
-__It’s fast, beautiful, and completely FREE!__
+**It’s fast, beautiful, and completely FREE!**
 
 
 * :ref:`genindex`
