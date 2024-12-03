@@ -4,7 +4,7 @@
 
 ### https://layer1.run
 
-Your local Layer-1 universal node manager.
+NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams.
 
 ### THIS PROJECT IS CURRENTLY STILL IN ALPHA-STAGE DEVELOPMENT. PLEASE DO NOT USE IN PRODUCTION.
 
@@ -12,4 +12,15 @@ Your local Layer-1 universal node manager.
 
 ## Introduction
 
-NodΞRunr is a complete solution for customizing, testing, deploying and maintaining from simple to advanced Layer1 networks.
+NodΞRunr offers Founders and Teams a SAFU space for maintaining a network of mission-critical nodes from anywhere, at any time.
+
+#### It’s fast, beautiful, and completely FREE!
+
+
+## Getting Started
+
+Paste the following command into your macOS, Linux or WSL terminal:
+
+```sh
+curl -sSL https://layer1.run/linux | bash
+```

@@ -6,10 +6,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'L1 NodΞRunr'
-copyright = '2024, Layer1 DAO. All rights reserved.'
-author = 'Layer1 Guru'
-release = '24.11.25'
+project = 'NodΞRunr'
+copyright = '2024, L1 GÜRŲ. All rights reserved'
+author = 'L1 GÜRŲ'
+release = '24.12.3'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,4 +25,5 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
+# html_theme = 'furo'
 html_static_path = ['_static']

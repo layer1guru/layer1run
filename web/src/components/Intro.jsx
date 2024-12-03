@@ -49,7 +49,7 @@ export function Intro() {
             <div>
                 <Link href="/">
                     {/* <LogoIcon className="inline-block h-8 w-auto" /> */}
-                    <Image src={iconLogo} width={50} height={50} />
+                    <Image src={iconLogo} width={50} height={50} alt="NodΞRunr Logo" />
                 </Link>
             </div>
 
@@ -62,10 +62,11 @@ export function Intro() {
             </h1>
 
             <p className="mt-4 text-sm/6 text-slate-200">
-                A lightweight daemon for effortless DevOps.
-                Manage your mission critical Layer-1 nodes.
-                Accessible from anywhere, at any time.
+                NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams —
+                assure your community of a SAFU space by maintaining your mission-critical nodes from anywhere, at any time.
+            </p>
 
+            <p className="mt-4 font-bold text-sm/6 text-slate-200 tracking-wider">
                 It’s fast, beautiful, and completely FREE!
             </p>
 
@@ -80,7 +81,7 @@ export function Intro() {
                     GitHub
                 </IconLink>
 
-                <IconLink href="/feed.xml" icon={FeedIcon} className="flex-none">
+                <IconLink href="https://arena.social" icon={FeedIcon} className="flex-none">
                     #TheArena
                 </IconLink>
             </div>

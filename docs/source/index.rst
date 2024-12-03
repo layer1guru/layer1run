@@ -1,19 +1,23 @@
-.. Layer1 Node Runner documentation master file, created by
-   sphinx-quickstart on Mon Nov 25 15:24:54 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+NodΞRunr Documentation
+======================
 
-Welcome to Layer1 Node Runner's documentation!
-==============================================
+NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: Table of Contents
+
+   usage
+   superuser
 
 
+Introduction
+============
 
-Indices and tables
-==================
+NodΞRunr offers Founders and Teams a SAFU space for maintaining a network of mission-critical nodes from anywhere, at any time.
+
+**It’s fast, beautiful, and completely FREE!**
+
 
 * :ref:`genindex`
 * :ref:`modindex`

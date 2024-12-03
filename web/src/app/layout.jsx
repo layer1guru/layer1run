@@ -22,12 +22,7 @@ const monaSans = localFont({
 export const metadata = {
     title: 'NodΞRunr by L1 GÜRŲ',
     description:
-        'A lightweight daemon for effortless devops. Manage your mission critical Layer-1 nodes. Accessible from anywhere, at any time. It’s fast, beautiful, and completely FREE!',
-    alternates: {
-        types: {
-            'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
-        },
-    },
+        'NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams.',
 }
 
 export default function RootLayout({ children }) {
