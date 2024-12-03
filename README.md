@@ -4,7 +4,7 @@
 
 ### https://layer1.run
 
-NodΞRunr is a lightweight, smart daemon delivering effortless SysOps for Founders and Teams.
+NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams.
 
 ### THIS PROJECT IS CURRENTLY STILL IN ALPHA-STAGE DEVELOPMENT. PLEASE DO NOT USE IN PRODUCTION.
 
