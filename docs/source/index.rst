@@ -8,6 +8,7 @@ NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founder
    :caption: Table of Contents
 
    usage
+   superuser
 
 
 Introduction
