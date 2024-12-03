@@ -23,11 +23,6 @@ export const metadata = {
     title: 'NodΞRunr by L1 GÜRŲ',
     description:
         'NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams.',
-    alternates: {
-        types: {
-            'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
-        },
-    },
 }
 
 export default function RootLayout({ children }) {

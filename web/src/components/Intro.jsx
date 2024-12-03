@@ -81,7 +81,7 @@ export function Intro() {
                     GitHub
                 </IconLink>
 
-                <IconLink href="/feed.xml" icon={FeedIcon} className="flex-none">
+                <IconLink href="https://arena.social" icon={FeedIcon} className="flex-none">
                     #TheArena
                 </IconLink>
             </div>
