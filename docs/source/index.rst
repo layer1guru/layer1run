@@ -13,7 +13,7 @@ NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founder
 Introduction
 ============
 
-NodΞRunr offers Founders and Teams a SAFU space for maintaining a network of mission critical nodes from anywhere, at any time.
+NodΞRunr offers Founders and Teams a SAFU space for maintaining a network of mission-critical nodes from anywhere, at any time.
 
 **It’s fast, beautiful, and completely FREE!**
 
