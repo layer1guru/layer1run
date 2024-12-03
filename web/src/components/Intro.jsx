@@ -49,7 +49,7 @@ export function Intro() {
             <div>
                 <Link href="/">
                     {/* <LogoIcon className="inline-block h-8 w-auto" /> */}
-                    <Image src={iconLogo} width={50} height={50} />
+                    <Image src={iconLogo} width={50} height={50} alt="NodΞRunr Logo" />
                 </Link>
             </div>
 
