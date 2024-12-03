@@ -95,10 +95,10 @@ pub fn get_uname() -> Result<String, Box<dyn std::error::Error>> {
  * Request the system release details.
  */
 pub fn get_release() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("lsb_release")
+    let output = Command::new("uname")
         .arg("-a")
         .output()
-        .expect("lsb_release command failed to complete");
+        .expect("uname command failed to complete");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
