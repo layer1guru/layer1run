@@ -6,12 +6,16 @@ NodΞRunr Documentation
    :caption: Contents:
 
 
+NodΞRunr is a lightweight, smart daemon delivering effortless SysOps for Founders and Teams.
+
 
 Introduction
 ============
 
-NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams —
-assure your community of a SAFU space by maintaining your mission critical nodes from anywhere, at any time.
+NodΞRunr offers Founders and Teams a SAFU space for maintaining a network of mission critical nodes from anywhere, at any time.
+
+#### It’s fast, beautiful, and completely FREE!
+
 
 * :ref:`genindex`
 * :ref:`modindex`
