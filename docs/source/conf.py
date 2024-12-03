@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'NodΞRunr'
-copyright = '2024, L1 GÜRŲ. All rights reserved.'
+copyright = '2024, L1 GÜRŲ. All rights reserved'
 author = 'L1 GÜRŲ'
 release = '24.12.3'
 

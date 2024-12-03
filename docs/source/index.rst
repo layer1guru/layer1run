@@ -5,6 +5,8 @@ NodΞRunr Documentation
    :maxdepth: 2
    :caption: Contents:
 
+   usage
+
 
 NodΞRunr is a lightweight, smart daemon delivering effortless SysOps for Founders and Teams.
 
