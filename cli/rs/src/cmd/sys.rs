@@ -76,7 +76,6 @@ pub fn mem() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("free")
         .arg("-h")
         .output();
-        // .expect("failed to execute free");
 
     match output {
         Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
@@ -176,3 +175,19 @@ pub fn install_golang() -> Result<String, Box<dyn std::error::Error>> {
 
     Ok(response)
 }
+
+pub fn system_profiler() -> Result<String, Box<dyn std::error::Error>> {
+    let mut response;
+
+    let output = Command::new("system_profiler")
+        .arg("SPHardwareDataType")
+        .output();
+
+    match output {
+        Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
+        Err(_err) => response = _err.to_string()
+    }
+
+    Ok(response)
+}
+
