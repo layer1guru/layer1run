@@ -47,12 +47,19 @@ pub fn lsblk() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
+    let mut response;
+
     let output = Command::new("lscpu")
         .arg("-e")
-        .output()
-        .expect("failed to execute lscpu");
+        .output();
+        // .expect("failed to execute lscpu");
 
-    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+    match output {
+        Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
+        Err(err) => response = err.to_string()
+    }
+
+    Ok(response)
 }
 
 pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
