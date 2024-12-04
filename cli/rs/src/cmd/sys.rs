@@ -56,7 +56,7 @@ pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
 
     match output {
         Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
-        Err(err) => response = err.to_string()
+        Err(_err) => response = _err.to_string()
     }
 
     Ok(response)
@@ -71,12 +71,19 @@ pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn mem() -> Result<String, Box<dyn std::error::Error>> {
+    let mut response;
+
     let output = Command::new("free")
         .arg("-h")
-        .output()
-        .expect("failed to execute free");
+        .output();
+        // .expect("failed to execute free");
 
-    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+    match output {
+        Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
+        Err(_err) => response = _err.to_string()
+    }
+
+    Ok(response)
 }
 
 pub fn ps() -> Result<String, Box<dyn std::error::Error>> {
