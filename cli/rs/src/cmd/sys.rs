@@ -48,6 +48,7 @@ pub fn lsblk() -> Result<String, Box<dyn std::error::Error>> {
 
 pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lscpu")
+        .arg("-e")
         .output()
         .expect("failed to execute process");
 
@@ -83,6 +84,14 @@ pub fn ps() -> Result<String, Box<dyn std::error::Error>> {
 pub fn get_uname() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("uname")
         .arg("-a")
+        .output()
+        .expect("failed to execute process");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn get_uptime() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("uptime")
         .output()
         .expect("failed to execute process");
 

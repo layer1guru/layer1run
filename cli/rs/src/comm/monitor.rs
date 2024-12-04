@@ -220,6 +220,12 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
             return ();
         }
 
+        if (exec == "uptime") {
+            let response = cmd::sys::get_uptime().expect("Oops! Could NOT execute `uptime`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+    
         /*************************************/
         /* HELP */
         /*************************************/
