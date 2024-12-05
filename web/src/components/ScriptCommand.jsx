@@ -16,7 +16,7 @@ The setup command has been saved to your clipboard.
 Now paste into your terminal (Ctrl + v) and go!`)
 }
 
-export function SignUpForm() {
+export function ScriptCommand() {
     let id = useId()
 
     return (

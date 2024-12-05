@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { IconLink } from '@/components/IconLink'
 import { Logo } from '@/components/Logo'
-import { SignUpForm } from '@/components/SignUpForm'
+import { ScriptCommand } from '@/components/ScriptCommand'
 
 import iconLogo from '../images/icon.png'
 
@@ -70,7 +70,7 @@ export function Intro() {
                 It’s fast, beautiful, and completely FREE!
             </p>
 
-            <SignUpForm />
+            <ScriptCommand />
 
             <div className="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-3 sm:gap-x-2 lg:justify-start">
                 <IconLink href="https://docs.layer1.run" icon={BookIcon} className="flex-none">
