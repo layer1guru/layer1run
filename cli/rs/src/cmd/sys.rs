@@ -10,7 +10,7 @@ pub fn df() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("df")
         .arg("-h")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute df");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
@@ -21,19 +21,19 @@ pub fn du() -> Result<String, Box<dyn std::error::Error>> {
         .arg("2")
         .arg("/home")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute du");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
 
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("ls")
-        // .arg("~")
-        .arg("/home")
+        .arg("$HOME")
+        // .arg("/home")
         .arg("-l")
         .arg("-a")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute ls");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
@@ -41,41 +41,55 @@ pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
 pub fn lsblk() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lsblk")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute lsblk");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
 
 pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("lscpu")
-        .output()
-        .expect("failed to execute process");
+    let mut response;
 
-    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+    let output = Command::new("lscpu")
+        .arg("-e")
+        .output();
+        // .expect("failed to execute lscpu");
+
+    match output {
+        Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
+        Err(_err) => response = _err.to_string()
+    }
+
+    Ok(response)
 }
 
 pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("lshw")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute lshw");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
 
 pub fn mem() -> Result<String, Box<dyn std::error::Error>> {
+    let mut response;
+
     let output = Command::new("free")
         .arg("-h")
-        .output()
-        .expect("failed to execute process");
+        .output();
 
-    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+    match output {
+        Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
+        Err(_err) => response = _err.to_string()
+    }
+
+    Ok(response)
 }
 
 pub fn ps() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("ps")
         .arg("aux")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute ps");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
@@ -84,7 +98,15 @@ pub fn get_uname() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("uname")
         .arg("-a")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute uname");
+
+    Ok(String::from_utf8_lossy(&output.stdout).to_string())
+}
+
+pub fn get_uptime() -> Result<String, Box<dyn std::error::Error>> {
+    let output = Command::new("uptime")
+        .output()
+        .expect("failed to execute uptime");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
@@ -98,7 +120,7 @@ pub fn get_release() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("uname")
         .arg("-a")
         .output()
-        .expect("uname command failed to complete");
+        .expect("failed to execute uname");
 
     Ok(String::from_utf8_lossy(&output.stdout).to_string())
 }
@@ -153,3 +175,19 @@ pub fn install_golang() -> Result<String, Box<dyn std::error::Error>> {
 
     Ok(response)
 }
+
+pub fn system_profiler() -> Result<String, Box<dyn std::error::Error>> {
+    let mut response;
+
+    let output = Command::new("system_profiler")
+        .arg("SPHardwareDataType")
+        .output();
+
+    match output {
+        Ok(_output) => response = String::from_utf8_lossy(&_output.stdout).to_string(),
+        Err(_err) => response = _err.to_string()
+    }
+
+    Ok(response)
+}
+

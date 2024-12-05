@@ -12,6 +12,10 @@ struct Registration {
     method: String,
     ip: String,
     release: String,
+    uptime: String,
+    cpu: String,
+    mem: String,
+    profile: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -31,10 +35,6 @@ pub fn new() -> String {
     /* Initialize locals. */
     let mut ip;
 
-    /* Request release. */
-    let release = cmd::sys::get_release().unwrap();
-// println!("RELEASE {:?}", release);
-    
     /* Request IP address. */
     let response = utils::ip::get();
 
@@ -49,11 +49,35 @@ pub fn new() -> String {
     }    
 // println!("\nIP -> {:?}", ip);
 
+    /* Request release. */
+    let release = cmd::sys::get_release().unwrap();
+// println!("RELEASE {:?}", release);
+    
+    /* Request uptime. */
+    let uptime = cmd::sys::get_uptime().unwrap();
+// println!("UPTIME {:?}", uptime);
+    
+    /* Request cpu. */
+    let cpu = cmd::sys::lscpu().unwrap();
+// println!("CPU {:?}", cpu);
+    
+    /* Request mem. */
+    let mem = cmd::sys::mem().unwrap();
+// println!("MEMORY {:?}", mem);
+    
+    /* Request system profile. */
+    let profile = cmd::sys::system_profiler().unwrap();
+// println!("SYSTEM PROFILE {:?}", profile);
+    
     /* Build (registration) package. */
     let pkg = Registration {
         method: "reg".to_string(),
         ip: ip.to_string(),
         release: release.to_string(),
+        uptime: uptime.to_string(),
+        cpu: cpu.to_string(),
+        mem: mem.to_string(),
+        profile: profile.to_string(),
     };
 
     /* Encode to JSON. */

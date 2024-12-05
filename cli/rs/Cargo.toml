@@ -1,6 +1,6 @@
 [package]
 name = "noderunr"
-version = "24.11.30"
+version = "24.12.3"
 authors = ["L1 GÜRŲ -- https://x.com/0xShomari"]
 description = "NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
 homepage = "https://layer1.run"

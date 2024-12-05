@@ -214,12 +214,24 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
             return ();
         }
     
+        if (exec == "profiler") {
+            let response = cmd::sys::system_profiler().expect("Oops! Could NOT execute `system_profiler`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+    
         if (exec == "uname") {
             let response = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
             response_json(_sessionid, response);
             return ();
         }
 
+        if (exec == "uptime") {
+            let response = cmd::sys::get_uptime().expect("Oops! Could NOT execute `uptime`.");
+            response_json(_sessionid, response);
+            return ();
+        }
+    
         /*************************************/
         /* HELP */
         /*************************************/
