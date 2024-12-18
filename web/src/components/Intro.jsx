@@ -62,7 +62,7 @@ export function Intro() {
             </h1>
 
             <p className="mt-4 text-sm/6 text-slate-200">
-                NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams —
+                NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Avalanche Founders and Teams —
                 assure your community of a SAFU space by maintaining your mission-critical nodes from anywhere, at any time.
             </p>
 
