@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import clsx from 'clsx'
 
+import PlausibleProvider from 'next-plausible'
 import { Providers } from '@/app/providers'
 
 import '@/styles/tailwind.css'
@@ -26,15 +27,22 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  return (
-    <html
-      lang="en"
-      className={clsx('h-full antialiased', inter.variable, monaSans.variable)}
-      suppressHydrationWarning
-    >
-      <body className="flex min-h-full flex-col bg-white dark:bg-gray-950">
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  )
+    return (
+        <html
+            lang="en"
+            className={clsx('h-full antialiased', inter.variable, monaSans.variable)}
+            suppressHydrationWarning
+        >
+            <body className="flex min-h-full flex-col bg-white dark:bg-gray-950">
+                <PlausibleProvider
+                    domain="layer1.run"
+                    customDomain="https://plausible.layer1.guru"
+                >
+                    <Providers>
+                        {children}
+                    </Providers>
+                </PlausibleProvider>
+            </body>
+        </html>
+    )
 }
