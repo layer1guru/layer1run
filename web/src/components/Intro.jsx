@@ -63,7 +63,7 @@ export function Intro() {
 
             <p className="mt-4 text-sm/6 text-slate-200">
                 NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Avalanche Founders and Teams —
-                assure your community of a SAFU space by maintaining your mission-critical nodes from anywhere, at any time.
+                assure your community of a SAFU space by maintaining your AVAX Layer-1 nodes from anywhere, at any time.
             </p>
 
             <p className="mt-4 font-bold text-sm/6 text-slate-200 tracking-wider">
