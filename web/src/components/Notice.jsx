@@ -15,7 +15,7 @@ import videojs from 'video.js'
 import VideoJS from '@/components/VideoPlayer'
 
 export function NodeRunr() {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     const playerRef = useRef(null)
 

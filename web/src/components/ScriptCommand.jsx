@@ -37,7 +37,7 @@ export function ScriptCommand() {
             </div>
 
             <small className="pl-3 pt-2 text-xs text-slate-100 tracking-wider">
-                ↑ paste into your macOS, Linux or WSL terminal ↑
+                ↑ paste into your Linux, <span className="line-through">macOS</span> or WSL terminal ↑
             </small>
         </>
     )
