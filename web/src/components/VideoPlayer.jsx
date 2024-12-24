@@ -28,7 +28,7 @@ export const VideoJS = (props) => {
             playerRef.current = player
 
             // Binding to the source selector plugin in Video.js
-            player.httpSourceSelector()
+            // player.httpSourceSelector()
 
             // You can update player in the `else` block here, for example:
         } else {
