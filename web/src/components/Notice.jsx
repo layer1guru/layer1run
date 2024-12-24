@@ -68,23 +68,23 @@ export function NodeRunr() {
                 <div className="flex min-h-full pb-20 items-end justify-center p-4 text-center sm:mb-0 sm:items-center sm:p-0">
                     <DialogPanel
                         transition
-                        className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-md sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
+                        className="relative transform overflow-hidden rounded-lg bg-gradient-to-b from-red-100 to-red-50 px-4 pb-4 pt-5 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-md sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95"
                     >
-                        <div className="pt-5">
+                        <div className="pt-2">
                             <div className="flex justify-end">
                                 <XCircleIcon
                                     onClick={() => setOpen(false)}
-                                    className="absolute -mt-7 -mr-1 size-12 text-gray-500"
+                                    className="absolute -mt-4 -mr-1 size-12 text-gray-500 opacity-50 cursor-pointer"
                                 />
                             </div>
 
-                            <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-rose-50">
+                            <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-rose-700/20">
                                 <Image
                                     src={avaxLogo}
-                                    width={20}
-                                    height={20}
+                                    width={0}
+                                    height={0}
                                     alt="Avalanche logo"
-                                    className="size-10 text-green-600"
+                                    className="size-8"
                                 />
                             </div>
 
@@ -94,10 +94,10 @@ export function NodeRunr() {
                                     <br />Submission
                                 </DialogTitle>
 
-                                <div className="mt-2">
+                                <div className="my-2">
                                     <p className="py-2 px-5 text-base text-slate-600 tracking-tight text-justify">
                                         <span className="font-bold">Did you know — </span>
-                                        the Avalanche team actively supports the hard-work of their ecosystem #BUIDLers with retro funding?
+                                        the Avalanche team is actively supporting the hard-work of their ecosystem #BUIDLers with retro funding?
                                     </p>
                                 </div>
 
@@ -114,13 +114,13 @@ export function NodeRunr() {
                                     />
                                 </div>
 
-                                <small className="block mt-1 text-slate-600 italic text-center tracking-wider">
-                                    Watch a demo of NodΞRunr in action <span className="text-base">👀</span>
+                                <small className="flex justify-center items-center mt-1 sm:mt-0 text-slate-600 font-bold italic text-center tracking-widest">
+                                    Watch a demo of NodΞRunr in action <span className="pl-1 text-lg">👀</span>
                                 </small>
                             </div>
                         </div>
 
-                        <div className="mt-5 sm:mt-6 flex flex-row gap-3">
+                        <div className="mt-5 sm:mt-2 flex flex-row gap-3">
                             <Link
                                 href="https://canvas.layer1.run"
                                 target="_blank"
@@ -140,14 +140,14 @@ export function NodeRunr() {
                             </Link>
                         </div>
 
-                        <div className="mt-5 sm:mt-6">
+                        <div className="mt-5 sm:mt-3">
                             <Link
                                 href="https://retro9000.avax.network"
                                 target="_blank"
                                 className="inline-flex w-full items-center justify-center rounded-md bg-sky-600 px-3 py-2 text-2xl font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
                             >
-                                Show Us <span className="px-2 text-rose-500 text-3xl">❤︎</span> By Voting
-                                <ArrowTopRightOnSquareIcon className="pl-1 size-6 text-sky-200" />
+                                Show Ur <span className="px-2 text-rose-500 text-4xl">❤︎</span> By Voting
+                                <ArrowTopRightOnSquareIcon className="pl-2 size-7 text-sky-200" />
                             </Link>
                         </div>
                     </DialogPanel>
