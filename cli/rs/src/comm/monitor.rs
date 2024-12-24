@@ -131,7 +131,7 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
     if (_resp.len() > 0) {
         let exec = &_resp[0].exec;
 
-        // println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
+// println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
 
         if (exec == "avax" || exec == "avalanche") {
             let response = cmd::network::avax().expect("Oops! Could NOT execute `avax`.");
@@ -305,10 +305,8 @@ pub fn by_session(_sessionid: &str) {
         unsafe {
             /* Make (remote) JSON (data) request. */
             response = request_json(_sessionid, LAST_SINCE);
-            // println!("\n  ...handler -> {}", response.as_ref().unwrap());
+// println!("\nRAW---\n{:?}\n", response);
         }
-        // let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
-// println!("\nRAW---\n{:?}\n", response); // Output: Person { name: "Jane Doe", age: 25 }
 
         // let session_resp: Result<_, Box<dyn std::error::Error>>;
         let mut session_resp: Result<SessionResponse, serde_json::Error> = Ok(SessionResponse::default());
@@ -318,33 +316,35 @@ pub fn by_session(_sessionid: &str) {
             Ok(_data) => {
                 session_resp = from_str(_data);
             },
-            Err(_) => println!("ERROR: Failed to receive a response from API server."),
+            Err(_) => println!("\n  ERROR: Failed to receive a response from API server."),
         }
-// println!("\nSR---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
+// println!("\nSR---\n{:?}\n", session_resp);
 
         let mut remote_data: SessionResponse = SessionResponse::default();
+        // let mut remote_data: Option<SessionResponse> = None;
+        // let mut remote_data: SessionResponse;
 
         match(session_resp) {
             Ok(_data) => {
                 // remote_data = session_resp.unwrap();
                 remote_data = _data;
+
+                unsafe {
+                    /* Update last since. */
+                    LAST_SINCE = remote_data.last_since
+                }
             },
-            Err(_) => println!("ERROR: Failed to receive any remote data."),
-            // None => (),
+            // Err(_) => println!("ERROR: Failed to receive any remote data."),
+            Err(_) => (),
         }
 // println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
 
-// println!("");
-// println!("  SESSION ID -> {}", remote_data.sessionid);
-// println!("      ACTION -> {:?}", remote_data.act);
-// println!("     REQUEST -> {:?}", remote_data.req);
-// println!("     CREATED -> {}", remote_data.created_at);
-// println!("  LAST SINCE -> {}", remote_data.last_since);
-
-        unsafe {
-            /* Update last since. */
-            LAST_SINCE = remote_data.last_since
-        }
+println!("");
+println!("  SESSION ID -> {}", remote_data.sessionid);
+println!("      ACTION -> {:?}", remote_data.act);
+println!("     REQUEST -> {:?}", remote_data.req);
+println!("     CREATED -> {}", remote_data.created_at);
+println!("  LAST SINCE -> {}", remote_data.last_since);
 
         match remote_data.req {
             Some(_data) => _handle_exec(&remote_data.sessionid, _data),

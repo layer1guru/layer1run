@@ -18,7 +18,7 @@ struct Registration {
     profile: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Default, Deserialize)]
 struct RegistrationResponse {
     sessionid: String,
     success: bool,
@@ -81,11 +81,28 @@ pub fn new() -> String {
     /* Make (remote) request. */
     let response = api::call("session", &json_string);
 
+    let mut reg_response: Result<RegistrationResponse, serde_json::Error> = Ok(RegistrationResponse::default());
+
     /* Parse (registration) response. */
-    let response: RegistrationResponse = from_str(&response.unwrap()).unwrap();
+    match(&response) {
+        Ok(_data) => {
+            reg_response = from_str(_data);
+        },
+        Err(_) => println!("ERROR: Failed to receive registration response.")
+    }
+
+    let mut registration: RegistrationResponse = RegistrationResponse::default();
+
+    /* Parse (registration) response. */
+    match(reg_response) {
+        Ok(_data) => {
+            registration = _data;
+        },
+        Err(_) => println!("ERROR: Failed to decode (remote) JSON data.")
+    }
 
     /* Set session id. */
-    let sessionid = response.sessionid;
+    let sessionid = registration.sessionid;
 
     println!("  NEW session created successfully!\n");
     println!("  [ {} ]\n", sessionid);

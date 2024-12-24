@@ -27,11 +27,14 @@ pub fn du() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("ls")
-        .arg("$HOME")
-        // .arg("/home")
-        .arg("-l")
-        .arg("-a")
+    let command = format!("ls $HOME -la");
+println!("COMMAND ($home): {}", command);
+    let output = Command::new("sh")
+        .arg("-c")
+        .arg(command)
+        // .arg("$HOME")
+        // .arg("-l")
+        // .arg("-a")
         .output()
         .expect("failed to execute ls");
 
