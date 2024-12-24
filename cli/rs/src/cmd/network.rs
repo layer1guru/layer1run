@@ -93,10 +93,6 @@ pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
     })
     .unwrap();
 
-    /* Change to (home) directory. */
-    // proc.send("cd $HOME").unwrap();
-    // sleep(Duration::from_secs(1));
-
     /* Make (hidden) .noderunr directory (if required). */
     proc.send("mkdir -p $HOME/.noderunr/bin").unwrap();
     sleep(Duration::from_secs(1));
@@ -105,8 +101,8 @@ pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
     proc.send("cd $HOME/.noderunr/bin").unwrap();
     sleep(Duration::from_secs(1));
 
-    // proc.send("curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b ./").unwrap();
-    // sleep(Duration::from_secs(1));
+    proc.send("curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b ./").unwrap();
+    sleep(Duration::from_secs(30));
 
     proc.send("export PATH=$PATH:$HOME/.noderunr/bin").unwrap();
     sleep(Duration::from_secs(1));

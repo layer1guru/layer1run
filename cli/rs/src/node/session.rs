@@ -51,23 +51,18 @@ pub fn new() -> String {
 
     /* Request release. */
     let release = cmd::sys::get_release().unwrap();
-// println!("RELEASE {:?}", release);
     
     /* Request uptime. */
     let uptime = cmd::sys::get_uptime().unwrap();
-// println!("UPTIME {:?}", uptime);
     
     /* Request cpu. */
     let cpu = cmd::sys::lscpu().unwrap();
-// println!("CPU {:?}", cpu);
     
     /* Request mem. */
     let mem = cmd::sys::mem().unwrap();
-// println!("MEMORY {:?}", mem);
     
     /* Request system profile. */
     let profile = cmd::sys::system_profiler().unwrap();
-// println!("SYSTEM PROFILE {:?}", profile);
     
     /* Build (registration) package. */
     let pkg = Registration {
@@ -85,11 +80,9 @@ pub fn new() -> String {
 
     /* Make (remote) request. */
     let response = api::call("session", &json_string);
-// println!("\nRESPONSE (json) {:?}", response);
 
     /* Parse (registration) response. */
     let response: RegistrationResponse = from_str(&response.unwrap()).unwrap();
-// println!("\nRESPONSE (session) {:?}", response);
 
     /* Set session id. */
     let sessionid = response.sessionid;

@@ -1,14 +1,14 @@
 [package]
 name = "noderunr"
-version = "24.12.3"
+version = "24.12.24"
 authors = ["L1 GÜRŲ -- https://x.com/0xShomari"]
 description = "NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
 homepage = "https://layer1.run"
 repository = "https://github.com/nyusternie/layer1run"
 categories = ["blockchain", "cryptocurrency"]
-keywords = ["avalanche", "avax", "crypto", "cryptocurrency", "bot", "command-line"]
+keywords = ["avalanche", "avax", "crypto", "cryptocurrency", "layer1", "subnet"]
 readme = "README.md"
-license = "MIT OR Apache-2.0"
+license = "MIT"
 edition = "2018"
 
 [[bin]]

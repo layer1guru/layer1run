@@ -41,7 +41,7 @@ struct Session {
     since: u64, // milliseconds
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Default, Deserialize)]
 struct SessionResponse {
     sessionid: String,
     act: Option<Vec<Action>>,
@@ -76,15 +76,18 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
     };
 
     let json_string = to_string(&session).unwrap();
+    // let json_string = to_string(&session)?;
 
     let client = reqwest::Client::new();
     let response = client.post(url)
         .header("Content-Type", "application/json")
         .body(json_string.to_string())
+        // .body(&json_string)
         .send()
         .await?;
 
     let response_body = response.text().await?;
+    // let response_body = response.text()?;
 
     /* Return response. */
     Ok(response_body)
@@ -304,27 +307,47 @@ pub fn by_session(_sessionid: &str) {
             response = request_json(_sessionid, LAST_SINCE);
             // println!("\n  ...handler -> {}", response.as_ref().unwrap());
         }
-
         // let json_string = r#"{"_id":"some-id","sessionid":"Jane Doe","since":25,"created_at":123}"#;
+// println!("\nRAW---\n{:?}\n", response); // Output: Person { name: "Jane Doe", age: 25 }
 
-        let session_resp: SessionResponse = from_str(&response.unwrap()).unwrap();
-        // println!("\n---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
+        // let session_resp: Result<_, Box<dyn std::error::Error>>;
+        let mut session_resp: Result<SessionResponse, serde_json::Error> = Ok(SessionResponse::default());
+        // let session_resp = SessionResponse::default();
 
-        // println!("");
-        // println!("  SESSION ID -> {}", session_resp.sessionid);
-        // println!("      ACTION -> {:?}", session_resp.act);
-        // println!("     REQUEST -> {:?}", session_resp.req);
-        // println!("     CREATED -> {}", session_resp.created_at);
-        // println!("  LAST SINCE -> {}", session_resp.last_since);
+        match(&response) {
+            Ok(_data) => {
+                session_resp = from_str(_data);
+            },
+            Err(_) => println!("ERROR: Failed to receive a response from API server."),
+        }
+// println!("\nSR---\n{:?}\n", session_resp); // Output: Person { name: "Jane Doe", age: 25 }
+
+        let mut remote_data: SessionResponse = SessionResponse::default();
+
+        match(session_resp) {
+            Ok(_data) => {
+                // remote_data = session_resp.unwrap();
+                remote_data = _data;
+            },
+            Err(_) => println!("ERROR: Failed to receive any remote data."),
+            // None => (),
+        }
+// println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
+
+// println!("");
+// println!("  SESSION ID -> {}", remote_data.sessionid);
+// println!("      ACTION -> {:?}", remote_data.act);
+// println!("     REQUEST -> {:?}", remote_data.req);
+// println!("     CREATED -> {}", remote_data.created_at);
+// println!("  LAST SINCE -> {}", remote_data.last_since);
 
         unsafe {
             /* Update last since. */
-            LAST_SINCE = session_resp.last_since
+            LAST_SINCE = remote_data.last_since
         }
 
-// println!("\nEXEC-1 -> {:?}", session_resp.req);
-        match session_resp.req {
-            Some(resp) => _handle_exec(&session_resp.sessionid, resp),
+        match remote_data.req {
+            Some(_data) => _handle_exec(&remote_data.sessionid, _data),
             None => (),
         }
     }
