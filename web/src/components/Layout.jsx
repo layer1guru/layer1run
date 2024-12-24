@@ -92,10 +92,16 @@ function FixedSidebar({ main, footer }) {
 export function Layout({ children }) {
     return (
         <>
-            <FixedSidebar main={<Intro />} footer={<IntroFooter />} />
+            <FixedSidebar
+                main={<Intro />}
+                footer={<IntroFooter />}
+            />
+
             <ThemeToggle />
+
             <div className="relative flex-auto">
                 <Timeline />
+
                 <main className="space-y-20 py-20 sm:space-y-32 sm:py-32">
                     {children}
                 </main>
