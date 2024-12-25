@@ -88,7 +88,7 @@ pub fn new() -> String {
         Ok(_data) => {
             reg_response = from_str(_data);
         },
-        Err(_) => println!("ERROR: Failed to receive registration response.")
+        Err(_) => println!("  Ugh! Your node registration failed!\n  Sorry about that, please try again...\n\n")
     }
 
     let mut registration: RegistrationResponse = RegistrationResponse::default();
@@ -97,22 +97,23 @@ pub fn new() -> String {
     match(reg_response) {
         Ok(_data) => {
             registration = _data;
+
+            /* Set session id. */
+            let sessionid = registration.sessionid;
+
+            println!("  NEW session created successfully!\n");
+            println!("  [ {} ]\n", sessionid);
+
+            println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
+            println!("  https://layer1.run/sid/#/{}", sessionid);
+
+            /* Start monitoring session. */
+            comm::monitor::by_session(&sessionid);
+
+            /* Return session ID. */
+            sessionid.to_string()
         },
-        Err(_) => println!("ERROR: Failed to decode (remote) JSON data.")
+        Err(_) => ("".to_string())
     }
 
-    /* Set session id. */
-    let sessionid = registration.sessionid;
-
-    println!("  NEW session created successfully!\n");
-    println!("  [ {} ]\n", sessionid);
-
-    println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
-    println!("  https://layer1.run/sid/#/{}", sessionid);
-
-    /* Start monitoring session. */
-    comm::monitor::by_session(&sessionid);
-
-    /* Return session ID. */
-    sessionid.to_string()
 }

@@ -16,10 +16,11 @@ pub fn df() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn du() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("du")
-        .arg("-hd")
-        .arg("2")
-        .arg("/home")
+    let command = format!("du -hd 2 $HOME");
+
+    let output = Command::new("sh")
+        .arg("-c")
+        .arg(command)
         .output()
         .expect("failed to execute du");
 
@@ -28,13 +29,10 @@ pub fn du() -> Result<String, Box<dyn std::error::Error>> {
 
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
     let command = format!("ls $HOME -la");
-println!("COMMAND ($home): {}", command);
+
     let output = Command::new("sh")
         .arg("-c")
         .arg(command)
-        // .arg("$HOME")
-        // .arg("-l")
-        // .arg("-a")
         .output()
         .expect("failed to execute ls");
 

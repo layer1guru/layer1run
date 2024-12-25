@@ -339,12 +339,12 @@ pub fn by_session(_sessionid: &str) {
         }
 // println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
 
-println!("");
-println!("  SESSION ID -> {}", remote_data.sessionid);
-println!("      ACTION -> {:?}", remote_data.act);
-println!("     REQUEST -> {:?}", remote_data.req);
-println!("     CREATED -> {}", remote_data.created_at);
-println!("  LAST SINCE -> {}", remote_data.last_since);
+// println!("");
+// println!("  SESSION ID -> {}", remote_data.sessionid);
+// println!("      ACTION -> {:?}", remote_data.act);
+// println!("     REQUEST -> {:?}", remote_data.req);
+// println!("     CREATED -> {}", remote_data.created_at);
+// println!("  LAST SINCE -> {}", remote_data.last_since);
 
         match remote_data.req {
             Some(_data) => _handle_exec(&remote_data.sessionid, _data),
