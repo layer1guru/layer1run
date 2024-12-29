@@ -8,7 +8,7 @@ use interactive_process::InteractiveProcess;
 
 /**
  * Ping
- * 
+ *
  * Starts a long-lived ping process on the provided destination.
  */
 pub fn ping() {
@@ -18,14 +18,14 @@ pub fn ping() {
         .spawn()
         .expect("Oops! Failed to execute child.");
 
-    /* Initialize output for child. */ 
+    /* Initialize output for child. */
     let stdout = child.stdout
         .as_mut()
         .expect("Oops! Failed to initialize output for child.");
-    
+
     /* Initialize intput buffer. */
     let stdout_reader = BufReader::new(stdout);
-    
+
     /* Handle line inputs. */
     let stdout_lines = stdout_reader
         .lines();
@@ -69,7 +69,7 @@ pub fn avax() -> Result<String, Box<dyn std::error::Error>> {
     let output = Command::new("avalanche")
         .arg("--help")
         .output();
-    
+
     match output {
         Ok(ref out) => {
             response = String::from_utf8_lossy(&output.unwrap().stdout).to_string();
@@ -86,12 +86,14 @@ pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
     // /* Initialize locals. */
     let mut response: String = "".to_string();
 
-    let mut cmd = Command::new("bash");
+    let mut cmd = Command::new("/usr/bin/bash");
 
-    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
-        println!("    ↳ {}", line.unwrap());
-    })
-    .unwrap();
+    let mut proc = InteractiveProcess::new(
+        &mut cmd, |line| {
+            println!("    ↳ {}", line.unwrap());
+        },
+        || println!("Child exited.")
+    ).unwrap();
 
     /* Make (hidden) .noderunr directory (if required). */
     proc.send("mkdir -p $HOME/.noderunr/bin").unwrap();
@@ -120,7 +122,6 @@ pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
     proc.close().kill().unwrap();
 
     Ok(response)
-    
 }
 
 pub fn avax_start() -> Result<String, Box<dyn std::error::Error>> {
@@ -138,7 +139,7 @@ pub fn avax_start() -> Result<String, Box<dyn std::error::Error>> {
     sleep(Duration::from_millis(10));
 
     proc.close().kill().unwrap();
-    
+
     Ok(response)
 }
 
@@ -157,7 +158,7 @@ pub fn avax_status() -> Result<String, Box<dyn std::error::Error>> {
     sleep(Duration::from_millis(10));
 
     proc.close().kill().unwrap();
-    
+
     Ok(response)
 }
 
@@ -176,7 +177,7 @@ pub fn avax_stop() -> Result<String, Box<dyn std::error::Error>> {
     sleep(Duration::from_millis(10));
 
     proc.close().kill().unwrap();
-    
+
     Ok(response)
 }
 
@@ -245,7 +246,7 @@ pub fn build_avalanche() -> Result<String, Box<dyn std::error::Error>> {
     //     .join(cmd4);
 
     // let output = cmd.output();
-    
+
     // match output {
     //     Ok(ref out) => {
     //         response = String::from_utf8_lossy(&output.unwrap().stdout).to_string();

@@ -6,7 +6,6 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import Image from 'next/image'
 import Link from 'next/link'
 
-// import { CheckIcon } from '@heroicons/react/24/outline'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import avaxLogo from '@/images/logos/avax.svg'
@@ -114,13 +113,13 @@ export function NodeRunr() {
                                     />
                                 </div>
 
-                                <small className="flex justify-center items-center mt-1 sm:mt-0 text-slate-600 font-bold italic text-center tracking-widest">
+                                <small className="flex justify-center items-center mt-0 text-slate-600 font-bold italic text-center tracking-widest">
                                     Watch a demo of NodΞRunr in action <span className="pl-1 text-lg">👀</span>
                                 </small>
                             </div>
                         </div>
 
-                        <div className="mt-5 sm:mt-2 flex flex-row gap-3">
+                        <div className="mt-3 sm:mt-2 flex flex-row gap-3">
                             <Link
                                 href="https://canvas.layer1.run"
                                 target="_blank"
@@ -140,7 +139,7 @@ export function NodeRunr() {
                             </Link>
                         </div>
 
-                        <div className="mt-5 sm:mt-3">
+                        <div className="mt-3">
                             <Link
                                 href="https://retro9000.avax.network"
                                 target="_blank"
