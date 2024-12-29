@@ -94,7 +94,7 @@ pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
             println!("    ↳ {}", line.unwrap());
         },
         || {
-            println!("\n    Avalanche has been successfully installed!\n");
+            println!("\n    ✨ Avalanche has been successfully installed! ✨\n");
             avax_test();
         }
     ).unwrap();
