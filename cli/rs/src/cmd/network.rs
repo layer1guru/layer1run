@@ -88,37 +88,72 @@ pub fn avax_install() -> Result<String, Box<dyn std::error::Error>> {
 
     let mut cmd = Command::new("/usr/bin/bash");
 
-    let mut proc = InteractiveProcess::new(
+    let mut proc = InteractiveProcess::new_with_exit_callback(
+        &mut cmd, 
+        |line| {
+            println!("    ↳ {}", line.unwrap());
+        },
+        || {
+            println!("\n    Avalanche has been successfully installed!\n");
+            avax_test();
+        }
+    ).unwrap();
+
+    /* Quick pause */
+    sleep(Duration::from_millis(10));
+
+    /* Make (hidden) .noderunr directory (if required). */
+    proc.send("mkdir -p $HOME/.noderunr/bin").unwrap();
+
+    /* Short pause */
+    sleep(Duration::from_secs(1));
+
+    /* Change to noderunr directory. */
+    proc.send("cd $HOME/.noderunr/bin").unwrap();
+
+    /* Short pause */
+    sleep(Duration::from_secs(1));
+
+    proc.send("curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b ./").unwrap();
+
+    /* Quick pause */
+    sleep(Duration::from_millis(10));
+
+    // We're done with the process
+    proc.close().kill().unwrap();
+
+    Ok(response)
+}
+
+fn avax_test() -> Result<String, Box<dyn std::error::Error>> {
+println!("Starting AVAX test...");
+    // /* Initialize locals. */
+    let mut response: String = "".to_string();
+
+    let mut cmd = Command::new("/usr/bin/bash");
+
+    let mut proc = InteractiveProcess::new_with_exit_callback(
         &mut cmd, |line| {
             println!("    ↳ {}", line.unwrap());
         },
         || println!("Child exited.")
     ).unwrap();
 
-    /* Make (hidden) .noderunr directory (if required). */
-    proc.send("mkdir -p $HOME/.noderunr/bin").unwrap();
-    sleep(Duration::from_secs(1));
-
-    /* Change to noderunr directory. */
-    proc.send("cd $HOME/.noderunr/bin").unwrap();
-    sleep(Duration::from_secs(1));
-
-    proc.send("curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b ./").unwrap();
-    sleep(Duration::from_secs(30));
-
-    proc.send("export PATH=$PATH:$HOME/.noderunr/bin").unwrap();
-    sleep(Duration::from_secs(1));
+    /* Quick pause */
+    sleep(Duration::from_millis(10));
 
     proc.send("$HOME/.noderunr/bin/avalanche --help").unwrap();
+
+    /* Short pause */
     sleep(Duration::from_secs(1));
+    // sleep(Duration::from_millis(10));
 
     proc.send("$HOME/.noderunr/bin/avalanche --version").unwrap();
-    // proc.send("avalanche --version").unwrap();
-    sleep(Duration::from_secs(1));
 
-    /// We're done with the process, but it is not self-terminating,
-    /// so we can't use `proc.wait()`. Instead, we'll take the `Child` from
-    /// the `InteractiveProcess` and kill it ourselves.
+    /* Quick pause */
+    sleep(Duration::from_millis(10));
+
+    // We're done with the process
     proc.close().kill().unwrap();
 
     Ok(response)
