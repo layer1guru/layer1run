@@ -137,10 +137,12 @@ pub fn install_golang() -> Result<String, Box<dyn std::error::Error>> {
 
     let mut cmd = Command::new("bash");
 
-    let mut proc = InteractiveProcess::new(&mut cmd, |line| {
-        println!("    ↳ {}", line.unwrap());
-    })
-    .unwrap();
+    let mut proc = InteractiveProcess::new_with_exit_callback(
+        &mut cmd, |line| {
+            println!("    ↳ {}", line.unwrap());
+        },
+        || println!("Child exited.")
+    ).unwrap();
 
     /* Change to (home) directory. */
     proc.send("cd").unwrap();
