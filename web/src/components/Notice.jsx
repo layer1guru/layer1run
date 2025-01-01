@@ -14,7 +14,7 @@ import videojs from 'video.js'
 import VideoJS from '@/components/VideoPlayer'
 
 export function NodeRunr() {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
 
     const playerRef = useRef(null)
 
@@ -23,8 +23,10 @@ export function NodeRunr() {
         autoplay: false,
         width: 400,
         sources: [{
-            src: 'https://ik.imagekit.io/ikmedia/sample-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720',
-            type: 'application/x-mpegURL',
+            // src: 'https://ik.imagekit.io/ikmedia/sample-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720',
+            // type: 'application/x-mpegURL',
+            src: 'https://media.layer1.guru/retro9000-intro.mp4',
+            type: 'video/mp4',
         }],
         plugins: {
             // httpSourceSelector: { default: 'auto' },
@@ -36,8 +38,8 @@ export function NodeRunr() {
         autoplay: false,
         width: 370,
         sources: [{
-            src: 'https://ik.imagekit.io/ikmedia/sample-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720',
-            type: 'application/x-mpegURL',
+            src: 'https://media.layer1.guru/retro9000-intro.mp4',
+            type: 'video/mp4',
         }],
         plugins: {
             // httpSourceSelector: { default: 'auto' },
