@@ -1,8 +1,9 @@
+import Script from 'next/script'
+
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import clsx from 'clsx'
 
-import PlausibleProvider from 'next-plausible'
 import { Providers } from '@/app/providers'
 
 import '@/styles/tailwind.css'
@@ -34,15 +35,11 @@ export default function RootLayout({ children }) {
             suppressHydrationWarning
         >
             <body className="flex min-h-full flex-col bg-white dark:bg-gray-950">
-                <PlausibleProvider
-                    domain="layer1.run"
-                    customDomain="https://plausible.layer1.guru"
-                >
-                    <Providers>
-                        {children}
-                    </Providers>
-                </PlausibleProvider>
+                <Providers>
+                    {children}
+                </Providers>
             </body>
+            <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
         </html>
     )
 }
