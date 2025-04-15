@@ -6,15 +6,7 @@ import { useInView } from 'framer-motion'
 
 import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
-// import { remToPx } from '@/lib/remToPx'
-function remToPx(remValue) {
-  let rootFontSize =
-    typeof window === 'undefined'
-      ? 16
-      : parseFloat(window.getComputedStyle(document.documentElement).fontSize)
-
-  return remValue * rootFontSize
-}
+import { remToPx } from '@/lib/remToPx'
 
 function AnchorIcon(props) {
   return (

@@ -10,15 +10,7 @@ import { Button } from '@/components/Button'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
 import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
-// import { remToPx } from '@/lib/remToPx'
-function remToPx(remValue) {
-  let rootFontSize =
-    typeof window === 'undefined'
-      ? 16
-      : parseFloat(window.getComputedStyle(document.documentElement).fontSize)
-
-  return remValue * rootFontSize
-}
+import { remToPx } from '@/lib/remToPx'
 
 function useInitialValue(value, condition = true) {
   let initialValue = useRef(value).current

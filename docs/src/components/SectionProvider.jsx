@@ -9,15 +9,7 @@ import {
 } from 'react'
 import { createStore, useStore } from 'zustand'
 
-// import { remToPx } from '@/lib/remToPx'
-function remToPx(remValue) {
-  let rootFontSize =
-    typeof window === 'undefined'
-      ? 16
-      : parseFloat(window.getComputedStyle(document.documentElement).fontSize)
-
-  return remValue * rootFontSize
-}
+import { remToPx } from '@/lib/remToPx'
 
 function createSectionStore(sections) {
   return createStore()((set) => ({
