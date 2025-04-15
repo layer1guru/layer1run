@@ -54,8 +54,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       mdx-annotations:
-        specifier: 0.1.1
-        version: 0.1.1
+        specifier: 0.1.4
+        version: 0.1.4
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -1827,8 +1827,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mdx-annotations@0.1.1:
-    resolution: {integrity: sha512-/MdUge3y4ZsnU15Hdhd5ktYHA2JwhRm93nSaReQ8OBNatvDcydELMbF7ltgvpDRruVciMDaQdwIBOGZU0KulpQ==}
+  mdx-annotations@0.1.4:
+    resolution: {integrity: sha512-SUYBUXP1qbgr0nRFFnUBg4HxxTbYyl5rE38fLTaIm0naPK+EhmKa0wRlUdgTMlMBj5gdCMwP1n7+L47JIHHWUQ==}
 
   memoize-one@4.0.3:
     resolution: {integrity: sha512-QmpUu4KqDmX0plH4u+tf0riMc1KHE1+lw95cMrLlXQAFOx/xnBtwhZ52XJxd9X2O6kwKBqX32kmhbhlobD0cuw==}
@@ -4858,7 +4858,7 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdx-annotations@0.1.1:
+  mdx-annotations@0.1.4:
     dependencies:
       acorn: 8.8.1
       estree-util-visit: 1.2.1
