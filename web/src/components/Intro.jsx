@@ -73,15 +73,15 @@ export function Intro() {
             <ScriptCommand />
 
             <div className="mt-8 flex flex-wrap justify-center gap-x-1 gap-y-3 sm:gap-x-2 lg:justify-start">
-                <IconLink href="https://docs.layer1.run" icon={BookIcon} className="flex-none">
+                <IconLink href="https://docs.layer1.run" target="_blank" icon={BookIcon} className="flex-none">
                     ReadTheDocs
                 </IconLink>
 
-                <IconLink href="https://github.com/nyusternie/layer1run" icon={GitHubIcon} className="flex-none">
+                <IconLink href="https://github.com/nyusternie/layer1run" target="_blank" icon={GitHubIcon} className="flex-none">
                     GitHub
                 </IconLink>
 
-                <IconLink href="https://arena.social" icon={FeedIcon} className="flex-none">
+                <IconLink href="https://arena.social" target="_blank" icon={FeedIcon} className="flex-none">
                     #TheArena
                 </IconLink>
             </div>
