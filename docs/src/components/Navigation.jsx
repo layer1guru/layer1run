@@ -10,7 +10,7 @@ import { Button } from '@/components/Button'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
 import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
-import { remToPx } from '@/lib/remToPx.js'
+import { remToPx } from '../lib/remToPx.js'
 
 function useInitialValue(value, condition = true) {
   let initialValue = useRef(value).current
