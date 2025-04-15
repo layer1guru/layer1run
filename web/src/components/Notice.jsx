@@ -25,7 +25,7 @@ export function NodeRunr() {
         sources: [{
             // src: 'https://ik.imagekit.io/ikmedia/sample-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720',
             // type: 'application/x-mpegURL',
-            src: 'https://media.layer1.guru/retro9000-intro.mp4',
+            src: 'https://media.layer1.guru/vid/retro9000-intro.mp4',
             type: 'video/mp4',
         }],
         plugins: {
@@ -38,7 +38,7 @@ export function NodeRunr() {
         autoplay: false,
         width: 370,
         sources: [{
-            src: 'https://media.layer1.guru/retro9000-intro.mp4',
+            src: 'https://media.layer1.guru/vid/retro9000-intro.mp4',
             type: 'video/mp4',
         }],
         plugins: {
