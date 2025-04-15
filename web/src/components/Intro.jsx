@@ -97,7 +97,7 @@ export function IntroFooter() {
                 0xShomari
             </IconLink>
             for
-            <Link href="https://retro9000.avax.network" className="font-medium text-rose-400 hover:text-rose-300">
+            <Link href="https://retro9000.avax.network/discover-builders/cm490lkn9004bbuff1hmdkj8r" className="font-medium text-rose-400 hover:text-rose-300">
                 AVAX retro9000
             </Link>
         </p>
