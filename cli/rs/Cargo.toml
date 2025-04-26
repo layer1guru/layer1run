@@ -1,10 +1,10 @@
 [package]
 name = "noderunr"
-version = "24.12.24"
+version = "25.4.26"
 authors = ["L1 GÜRŲ -- https://x.com/0xShomari"]
-description = "NodΞRunr offers a FOSS solution for managing your Layer-1 nodes locally OR via cloud."
+description = "NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Avalanche Founders and Teams — It’s fast, beautiful, and completely FREE!"
 homepage = "https://layer1.run"
-repository = "https://github.com/nyusternie/layer1run"
+repository = "https://github.com/layer1guru/layer1run"
 categories = ["blockchain", "cryptocurrency"]
 keywords = ["avalanche", "avax", "crypto", "cryptocurrency", "layer1", "subnet"]
 readme = "README.md"
@@ -16,13 +16,13 @@ name = "noderunr"
 path = "src/noderunr.rs"
 
 [dependencies]
-clap = { version = "3.2.22", features = ["derive"] }
-env_logger = "0.9.0"
-human-panic = "1.0.3"
+clap = { version = "4.5.37", features = ["derive"] }
+env_logger = "0.11.8"
+human-panic = "2.0.2"
 indicatif = "0.17.1"
 interactive_process = "0.1.3"
 log = "0.4.17"
-reqwest = { version = "0.11", features = ["blocking", "json"] }
+reqwest = { version = "0.12.15", features = ["blocking", "json"] }
 serde = "1.0.215"
 serde_json = "1.0.85"
 tokio = { version = "1", features = ["full"] }
@@ -30,7 +30,7 @@ tokio-stream = "0.1"
 
 [dev-dependencies]
 assert_cmd = "2.0"
-predicates = "2.1"
+predicates = "3.1.3"
 
 [dependencies.uuid]
 version = "1.1.2"
