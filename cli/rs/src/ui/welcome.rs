@@ -34,7 +34,7 @@ pub fn banner_alt() {
     ██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║╚██████╔╝██║ ╚████║██║  ██║
     ╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝");
 
-    println!("                                                    {}\n", noderunr::get_version());
+    println!("                                                      {}\n", noderunr::get_version());
     println!("                                              brought to you by L1 GÜRŲ");
     println!("                                                    https://layer1.guru");
 }

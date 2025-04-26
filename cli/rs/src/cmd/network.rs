@@ -156,6 +156,8 @@ println!("Starting AVAX test...");
     // We're done with the process
     proc.close().kill().unwrap();
 
+// bin/avalanche blockchain create test --evm --proof-of-authority --evm-token TEST --validator-manager-owner 0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC --test-defaults --evm-chain-id 1234
+
     Ok(response)
 }
 

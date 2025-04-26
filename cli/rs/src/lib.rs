@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 /**
  * Get Version
  * 
@@ -5,12 +7,12 @@
  * 
  * NOTE: Package version is passed as an environment variable to the compiler.
  */
-pub fn get_version() -> String {
+pub fn get_version() -> Cow<'static, str> {
     /* Retrieve app version from toml. */
     let version: &str = env!("CARGO_PKG_VERSION");
 
     /* Return formatted app version. */
-    format!("v{} (alpha)", version)
+    Cow::from(format!("v{} (alpha)", version))
 }
 
 /**
