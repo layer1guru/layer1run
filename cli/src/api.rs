@@ -2,12 +2,12 @@
 const L1GURU_ENDPOINT: &str = "https://layer1.guru/v1/";
 
 /**
- * Request JSON
+ * Call
  *
- * Make a (remote) API call for JSON-formatted data.
+ * Make a (remote) API call.
  */
 #[tokio::main]
-pub async fn request_json(_endpoint: &str, _json: &str) -> Result<String, Box<dyn std::error::Error>> {
+pub async fn call(_endpoint: &str, _json: &str) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
     let url = format!("{}{}", L1GURU_ENDPOINT, _endpoint);
 
@@ -15,7 +15,7 @@ pub async fn request_json(_endpoint: &str, _json: &str) -> Result<String, Box<dy
 
     let client = reqwest::Client::new();
     let response = client.post(url)
-        .header("Content-Type", "application/json")
+        .header("content-type", "application/json")
         // .headers(headers.into_iter().collect())
         .body(_json.to_string())
         .send()

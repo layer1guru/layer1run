@@ -23,9 +23,9 @@ pub trait Validator {
 }
 
 /**
- * Subnet
+ * Blockchain
  */
-pub trait Subnet {
+pub trait Blockchain {
     fn get_id(&self) -> String;
 }
 
@@ -33,11 +33,11 @@ pub struct FederationNode {
     pub id: String,
     pub owner: String,
     pub title: String,
-    pub created_at: String,
+    pub created_at: u64,
 }
 
 impl Validator for FederationNode {
     fn get_id(&self) -> String {
-        format!("id is {}", self.id)
+        format!("Validator ID is {}", self.id)
     }
 }

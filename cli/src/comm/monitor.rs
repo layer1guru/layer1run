@@ -70,24 +70,28 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
     /* Set URL (for remote API). */
     let url = format!("{}{}", L1GURU_ENDPOINT, "session");
 
+    /* Build request package. */
     let session = Session {
         sessionid: _sessionid.to_string(),
         since: _since,
     };
 
+    /* Set JSON (package) string. */
     let json_string = to_string(&session).unwrap();
-    // let json_string = to_string(&session)?;
 
+    /* Initialize client. */
     let client = reqwest::Client::new();
+
+    /* Send API request. */
     let response = client.post(url)
-        .header("Content-Type", "application/json")
+        .header("content-type", "application/json")
         .body(json_string.to_string())
         // .body(&json_string)
         .send()
         .await?;
 
+    /* Handle (API request) response */
     let response_body = response.text().await?;
-    // let response_body = response.text()?;
 
     /* Return response. */
     Ok(response_body)
@@ -113,7 +117,7 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
  
      let client = reqwest::Client::new();
      let response = client.post(url)
-         .header("Content-Type", "application/json")
+         .header("content-type", "application/json")
          .body(json_string.to_string())
          .send()
          .await?;
@@ -130,7 +134,6 @@ fn _handle_exec(_sessionid: &str, _resp: Vec<Request>) {
     /* Validate response. */
     if (_resp.len() > 0) {
         let exec = &_resp[0].exec;
-
 // println!("\n***HANDLING (VEC) EXEC {:?}", &exec);
 
         if (exec == "avax" || exec == "avalanche") {
