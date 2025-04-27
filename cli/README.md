@@ -1,7 +1,3 @@
-# Layer1Run Commander
+# NodΞRunr Command Line Interface
 
-### A suite of nodes for Layer1 management.
-
-1. JavaScript
-2. Python
-3. Rust
+NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams.
