@@ -9,7 +9,7 @@ use crate::utils;
 
 #[derive(Serialize)]
 struct Registration {
-    method: String,
+    // method: String,
     ip: String,
     release: String,
     uptime: String,
@@ -20,9 +20,20 @@ struct Registration {
 
 #[derive(Debug, Default, Deserialize)]
 struct RegistrationResponse {
-    sessionid: String,
     success: bool,
-    created_at: u32, // seconds
+    result: Session,
+    // created_at: u32, // seconds
+}
+
+#[derive(Debug, Default, Deserialize)]
+struct Session {
+    sessionid: String,
+    // ip: String,
+    // release: String,
+    // uptime: String,
+    // cpu: String,
+    // mem: String,
+    // profile: String,
 }
 
 
@@ -66,7 +77,7 @@ pub fn new() -> String {
     
     /* Build (registration) package. */
     let pkg = Registration {
-        method: "reg".to_string(),
+        // method: "reg".to_string(),
         ip: ip.to_string(),
         release: release.to_string(),
         uptime: uptime.to_string(),
@@ -98,14 +109,17 @@ pub fn new() -> String {
         Ok(_data) => {
             registration = _data;
 
+            /* Set session. */
+            let session = registration.result;
+
             /* Set session id. */
-            let sessionid = registration.sessionid;
+            let sessionid = session.sessionid;
 
             println!("  NEW session created successfully!\n");
             println!("  [ {} ]\n", sessionid);
 
             println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
-            println!("  https://layer1.run/sid/#/{}", sessionid);
+            println!("  https://layer1.run/id/#/{}", sessionid);
 
             /* Start monitoring session. */
             comm::monitor::by_session(&sessionid);

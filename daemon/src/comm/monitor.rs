@@ -20,7 +20,7 @@ struct Action {
 struct ExecResponse {
     sessionid: String,
     method: String,
-    resp: String,
+    body: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -33,6 +33,28 @@ struct Log {
 struct Request {
     exec: String,
     created_at: u64, // milliseconds
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Default, Deserialize)]
+struct ApiRequestResponse {
+    success: bool,
+    totalCount: u32,
+    data: Option<Vec<RequestResponse>>,
+    cursor: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Default, Deserialize)]
+struct RequestResponse {
+    requestid: String,
+    sessionid: String,
+    cmd: String,
+    payload: String,
+    status: u8,
+    createdAt: u64, // milliseconds
+    // updatedAt: u64, // milliseconds
+    // last_since: u64 // milliseconds
 }
 
 #[derive(Serialize)]
@@ -68,24 +90,28 @@ static mut LAST_SINCE: u64 = 1;
 #[tokio::main]
 async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
-    let url = format!("{}{}", L1GURU_ENDPOINT, "session");
+    let url = format!("{}{}{}", L1GURU_ENDPOINT, "command/request?", _since);
 
     /* Build request package. */
-    let session = Session {
-        sessionid: _sessionid.to_string(),
-        since: _since,
-    };
+    // let session = Session {
+    //     sessionid: _sessionid.to_string(),
+    //     since: _since,
+    // };
 
     /* Set JSON (package) string. */
-    let json_string = to_string(&session).unwrap();
+    // let json_string = to_string(&session).unwrap();
 
     /* Initialize client. */
     let client = reqwest::Client::new();
 
+    /* Set (authorization) token. */
+    let token = format!("Bearer {}", _sessionid);
+
     /* Send API request. */
-    let response = client.post(url)
+    let response = client.get(url.clone())
+        .header("Authorization", token)
         .header("content-type", "application/json")
-        .body(json_string.to_string())
+    // .body(json_string.to_string())
         // .body(&json_string)
         .send()
         .await?;
@@ -105,12 +131,13 @@ async fn request_json(_sessionid: &str, _since: u64) -> Result<String, Box<dyn s
  #[tokio::main]
  async fn response_json(_sessionid: &str, _response: String) -> Result<String, Box<dyn std::error::Error>> {
      /* Set URL (for remote API). */
-     let url = format!("{}{}", L1GURU_ENDPOINT, "session");
+    //  let url = format!("{}{}", L1GURU_ENDPOINT, "session");
+     let url = format!("{}{}", L1GURU_ENDPOINT, "command");
  
      let exec_response = ExecResponse {
          sessionid: _sessionid.to_string(),
          method: "res".to_string(),
-         resp: _response,
+         body: _response,
      };
  
      let json_string = to_string(&exec_response).unwrap();
@@ -308,11 +335,11 @@ pub fn by_session(_sessionid: &str) {
         unsafe {
             /* Make (remote) JSON (data) request. */
             response = request_json(_sessionid, LAST_SINCE);
-// println!("\nRAW---\n{:?}\n", response);
+println!("\nRAW---\n{:?}\n", response);
         }
 
         // let session_resp: Result<_, Box<dyn std::error::Error>>;
-        let mut session_resp: Result<SessionResponse, serde_json::Error> = Ok(SessionResponse::default());
+        let mut session_resp: Result<ApiRequestResponse, serde_json::Error> = Ok(ApiRequestResponse::default());
         // let session_resp = SessionResponse::default();
 
         match(&response) {
@@ -321,9 +348,9 @@ pub fn by_session(_sessionid: &str) {
             },
             Err(_) => println!("\n  ERROR: Failed to receive a response from API server."),
         }
-// println!("\nSR---\n{:?}\n", session_resp);
+println!("\nSR---\n{:?}\n", session_resp);
 
-        let mut remote_data: SessionResponse = SessionResponse::default();
+        let mut remote_data: ApiRequestResponse = ApiRequestResponse::default();
         // let mut remote_data: Option<SessionResponse> = None;
         // let mut remote_data: SessionResponse;
 
@@ -334,24 +361,63 @@ pub fn by_session(_sessionid: &str) {
 
                 unsafe {
                     /* Update last since. */
-                    LAST_SINCE = remote_data.last_since
+                    // LAST_SINCE = remote_data.last_since
+                    // LAST_SINCE = remote_data.data[0].updatedAt
                 }
             },
             // Err(_) => println!("ERROR: Failed to receive any remote data."),
             Err(_) => (),
         }
-// println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
+println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
 
 // println!("");
-// println!("  SESSION ID -> {}", remote_data.sessionid);
-// println!("      ACTION -> {:?}", remote_data.act);
-// println!("     REQUEST -> {:?}", remote_data.req);
-// println!("     CREATED -> {}", remote_data.created_at);
-// println!("  LAST SINCE -> {}", remote_data.last_since);
+// println!("  SESSION ID -> {}", remote_data.data[0].sessionid);
+// println!("      ACTION -> {:?}", remote_data.data[0].act);
+// println!("     REQUEST -> {:?}", remote_data.data[0].req);
+// println!("     CREATED -> {}", remote_data.data[0].created_at);
+// println!("  LAST SINCE -> {}", remote_data.data[0].updatedAt);
 
-        match remote_data.req {
-            Some(_data) => _handle_exec(&remote_data.sessionid, _data),
+        let mut request_data = RequestResponse::default();
+        // let mut request_data_alt = Some(RequestResponse::default());
+
+        match(remote_data.data) {
+            Some(_data) => {
+                // remote_data = session_resp.unwrap();
+                // request_data = _data.get(0);
+                println!("DEBUG-1 {:?}", _data);
+                let mut cloned = _data;
+                println!("DEBUG-2 {:?}", cloned);
+                if (cloned.len() > 0) {
+                    request_data = cloned.remove(0);
+                }
+
+                // match(_data.get(0)) {
+                //     Some(_data) => {
+                //         request_data = _data;
+                //         println!("GET SOME! {:?}", _data)
+                //     },
+                //     None => (),
+                // }
+
+                unsafe {
+                    /* Update last since. */
+                    // LAST_SINCE = remote_data.last_since
+                    // LAST_SINCE = remote_data.data[0].updatedAt
+                }
+            },
+            // Err(_) => println!("ERROR: Failed to receive any remote data."),
             None => (),
         }
+println!("\nRQD---\n{:?}\n", request_data);
+println!("\nSID---\n{:?}\n", request_data.sessionid);
+println!("\nCMD---\n{:?}\n", request_data.cmd);
+
+        // _handle_exec(&remote_data.sessionid, _data)
+
+        // match remote_data.data {
+        //     // Some(_data) => _handle_exec(&remote_data.sessionid, _data),
+        //     Some(_data) => println!("{:?}", _data),
+        //     None => (),
+        // }
     }
 }
