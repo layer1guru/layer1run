@@ -129,33 +129,33 @@ async fn request_json(sessionid: &str, _since: u64) -> Result<String, Box<dyn st
  *
  * Make a (remote) API response.
  */
- #[tokio::main]
- async fn response_json(sessionid: &str, requestid: &str, _response: String) -> Result<String, Box<dyn std::error::Error>> {
-     /* Set URL (for remote API). */
+#[tokio::main]
+async fn response_json(sessionid: &str, requestid: &str, _response: String) -> Result<String, Box<dyn std::error::Error>> {
+    /* Set URL (for remote API). */
     //  let url = format!("{}{}", L1GURU_ENDPOINT, "session");
-     let url = format!("{}{}", L1GURU_ENDPOINT, "command");
+    let url = format!("{}{}", L1GURU_ENDPOINT, "command");
  
-     let exec_response = ExecResponse {
-         method: "res".to_string(),
-         requestid: requestid.to_string(),
-         body: _response,
-     };
+    let exec_response = ExecResponse {
+        method: "res".to_string(),
+        requestid: requestid.to_string(),
+        body: _response,
+    };
  
-     let json_string = to_string(&exec_response).unwrap();
+    let json_string = to_string(&exec_response).unwrap();
  
-     let client = reqwest::Client::new();
-     let response = client.post(url)
-         .header("Authorization", format!("Bearer {}", sessionid.to_string()))
-         .header("content-type", "application/json")
-         .body(json_string.to_string())
-         .send()
-         .await?;
+    let client = reqwest::Client::new();
+    let response = client.post(url)
+        .header("Authorization", format!("Bearer {}", sessionid.to_string()))
+        .header("content-type", "application/json")
+        .body(json_string.to_string())
+        .send()
+        .await?;
  
-     let response_body = response.text().await?;
- println!("RESPONSE BODY {:?}", response_body);
-     /* Return response. */
-     Ok(response_body)
- }
+    let response_body = response.text().await?;
+println!("RESPONSE BODY {:?}", response_body);
+    /* Return response. */
+    Ok(response_body)
+}
 
 fn _handle_exec(_resp: RequestResponse) {
 println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
@@ -418,12 +418,7 @@ println!("\nRQD---\n{:?}\n", request_data);
 println!("\nSID---\n{:?}\n", request_data.sessionid);
 println!("\nCMD---\n{:?}\n", request_data.cmd);
 
-_handle_exec(request_data)
-
-        // match remote_data.data {
-        //     // Some(_data) => _handle_exec(&remote_data.sessionid, _data),
-        //     Some(_data) => println!("{:?}", _data),
-        //     None => (),
-        // }
+        /* Handle execution. */
+        _handle_exec(request_data)
     }
 }
