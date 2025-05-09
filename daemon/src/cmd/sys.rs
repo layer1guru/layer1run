@@ -1,13 +1,13 @@
 /* Import modules. */
 use std::io::{BufReader, BufRead};
 use std::io::{self, Write};
-use std::process::{Command, Stdio};
+use std::process::{Command, Output, Stdio};
 use std::thread::sleep;
 use std::time::Duration;
 use interactive_process::InteractiveProcess;
 
 pub fn df() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("df")
+    let output: Output = Command::new("df")
         .arg("-h")
         .output()
         .expect("failed to execute df");
@@ -16,9 +16,9 @@ pub fn df() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn du() -> Result<String, Box<dyn std::error::Error>> {
-    let command = format!("du -hd 2 $HOME");
+    let command: String = format!("du -hd 2 $HOME");
 
-    let output = Command::new("sh")
+    let output: Output = Command::new("sh")
         .arg("-c")
         .arg(command)
         .output()
@@ -28,9 +28,9 @@ pub fn du() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
-    let command = format!("ls $HOME -la");
+    let command: String = format!("ls $HOME -la");
 
-    let output = Command::new("sh")
+    let output: Output = Command::new("sh")
         .arg("-c")
         .arg(command)
         .output()
@@ -40,7 +40,7 @@ pub fn ls() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn lsblk() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("lsblk")
+    let output: Output = Command::new("lsblk")
         .output()
         .expect("failed to execute lsblk");
 
@@ -48,9 +48,9 @@ pub fn lsblk() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
-    let mut response;
+    let mut response: String;
 
-    let output = Command::new("lscpu")
+    let output: Result<Output, io::Error> = Command::new("lscpu")
         .arg("-e")
         .output();
         // .expect("failed to execute lscpu");
@@ -64,7 +64,7 @@ pub fn lscpu() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("lshw")
+    let output: Output = Command::new("lshw")
         .output()
         .expect("failed to execute lshw");
 
@@ -72,9 +72,9 @@ pub fn lshw() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn mem() -> Result<String, Box<dyn std::error::Error>> {
-    let mut response;
+    let mut response: String;
 
-    let output = Command::new("free")
+    let output: Result<Output, io::Error> = Command::new("free")
         .arg("-h")
         .output();
 
@@ -87,7 +87,7 @@ pub fn mem() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn ps() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("ps")
+    let output: Output = Command::new("ps")
         .arg("aux")
         .output()
         .expect("failed to execute ps");
@@ -96,7 +96,7 @@ pub fn ps() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn get_uname() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("uname")
+    let output: Output = Command::new("uname")
         .arg("-a")
         .output()
         .expect("failed to execute uname");
@@ -105,7 +105,7 @@ pub fn get_uname() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn get_uptime() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("uptime")
+    let output: Output = Command::new("uptime")
         .output()
         .expect("failed to execute uptime");
 
@@ -118,7 +118,7 @@ pub fn get_uptime() -> Result<String, Box<dyn std::error::Error>> {
  * Request the system release details.
  */
 pub fn get_release() -> Result<String, Box<dyn std::error::Error>> {
-    let output = Command::new("uname")
+    let output: Output = Command::new("uname")
         .arg("-a")
         .output()
         .expect("failed to execute uname");
@@ -135,9 +135,9 @@ pub fn install_golang() -> Result<String, Box<dyn std::error::Error>> {
     // /* Initialize locals. */
     let mut response: String = "".to_string();
 
-    let mut cmd = Command::new("bash");
+    let mut cmd: Command = Command::new("bash");
 
-    let mut proc = InteractiveProcess::new_with_exit_callback(
+    let mut proc: InteractiveProcess = InteractiveProcess::new_with_exit_callback(
         &mut cmd, |line| {
             println!("    ↳ {}", line.unwrap());
         },
@@ -180,9 +180,9 @@ pub fn install_golang() -> Result<String, Box<dyn std::error::Error>> {
 }
 
 pub fn system_profiler() -> Result<String, Box<dyn std::error::Error>> {
-    let mut response;
+    let mut response: String;
 
-    let output = Command::new("system_profiler")
+    let output: Result<Output, io::Error> = Command::new("system_profiler")
         .arg("SPHardwareDataType")
         .output();
 

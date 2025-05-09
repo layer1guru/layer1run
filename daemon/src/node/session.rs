@@ -39,7 +39,7 @@ struct Session {
  */
 pub fn new() -> String {
     /* Initialize locals. */
-    let mut ip;
+    let mut ip: String;
 
     /* Request IP address. */
     let response = utils::ip::get();
@@ -53,7 +53,6 @@ pub fn new() -> String {
             ip = err.to_string();
         }
     }    
-// println!("\nIP -> {:?}", ip);
 
     /* Request release. */
     let release: String = cmd::sys::get_release().unwrap();
@@ -123,5 +122,4 @@ pub fn new() -> String {
         },
         Err(_) => ("".to_string())
     }
-
 }
