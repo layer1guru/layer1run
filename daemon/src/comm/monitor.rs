@@ -329,12 +329,12 @@ pub fn by_session(sessionid: &str) {
 
     /* Start inifinite loop. */
     loop {
-        let ten_seconds = time::Duration::from_millis(10000);
+        let three_seconds = time::Duration::from_millis(3000);
         let now = time::Instant::now();
         
-        thread::sleep(ten_seconds);
+        thread::sleep(three_seconds);
         
-        assert!(now.elapsed() >= ten_seconds);
+        assert!(now.elapsed() >= three_seconds);
 
         unsafe {
             /* Make (remote) JSON (data) request. */
