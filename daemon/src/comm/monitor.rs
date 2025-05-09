@@ -147,7 +147,7 @@ async fn response_json(sessionid: &str, requestid: &str, _response: String) -> R
     /* Parse data result. */
     // let response_body = response.json().await?;
     let response_body: String = response.text().await?;
-println!("RESPONSE BODY {:?}", response_body);
+// println!("RESPONSE BODY {:?}", response_body);
     /* Return response. */
     Ok(response_body)
 }
@@ -406,10 +406,10 @@ pub fn by_session(sessionid: &str) {
 
         /* Validate request ID. */
         if (!request_data.requestid.is_empty()) {
-println!("\nRQD---\n{:?}\n", request_data);
-println!("\nSID---\n{:?}\n", request_data.sessionid);
-println!("\nCMD---\n{:?}\n", request_data.cmd);
-println!("\n@TS---\n{:?}\n", request_data.createdAt);
+// println!("\nRQD---\n{:?}\n", request_data);
+// println!("\nSID---\n{:?}\n", request_data.sessionid);
+// println!("\nCMD---\n{:?}\n", request_data.cmd);
+// println!("\n@TS---\n{:?}\n", request_data.createdAt);
 
             unsafe {
                 /* Update last since. */
