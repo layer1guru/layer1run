@@ -25,15 +25,12 @@ struct RegistrationResponse {
     // created_at: u32, // seconds
 }
 
+#[allow(non_snake_case)]
 #[derive(Debug, Default, Deserialize)]
 struct Session {
     sessionid: String,
-    // ip: String,
-    // release: String,
-    // uptime: String,
-    // cpu: String,
-    // mem: String,
-    // profile: String,
+    hasAuth: bool,
+    createdAt: u32,
 }
 
 
