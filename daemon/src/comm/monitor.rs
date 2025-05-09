@@ -91,16 +91,7 @@ static mut LAST_SINCE: u64 = 1;
 #[tokio::main]
 async fn request_json(sessionid: &str, _since: u64) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
-    let url = format!("{}{}{}", L1GURU_ENDPOINT, "command/request?", _since);
-
-    /* Build request package. */
-    // let session = Session {
-    //     sessionid: sessionid.to_string(),
-    //     since: _since,
-    // };
-
-    /* Set JSON (package) string. */
-    // let json_string = to_string(&session).unwrap();
+    let url = format!("{}{}{}", L1GURU_ENDPOINT, "command/request?since=", _since);
 
     /* Initialize client. */
     let client = reqwest::Client::new();
@@ -109,11 +100,9 @@ async fn request_json(sessionid: &str, _since: u64) -> Result<String, Box<dyn st
     let token = format!("Bearer {}", sessionid);
 
     /* Send API request. */
-    let response = client.get(url.clone())
+    let response = client.get(url)
         .header("Authorization", token)
         .header("content-type", "application/json")
-    // .body(json_string.to_string())
-        // .body(&json_string)
         .send()
         .await?;
 
@@ -132,18 +121,22 @@ async fn request_json(sessionid: &str, _since: u64) -> Result<String, Box<dyn st
 #[tokio::main]
 async fn response_json(sessionid: &str, requestid: &str, _response: String) -> Result<String, Box<dyn std::error::Error>> {
     /* Set URL (for remote API). */
-    //  let url = format!("{}{}", L1GURU_ENDPOINT, "session");
     let url = format!("{}{}", L1GURU_ENDPOINT, "command");
  
+    /* Build response. */
     let exec_response = ExecResponse {
         method: "res".to_string(),
         requestid: requestid.to_string(),
         body: _response,
     };
  
+    /* Initialize JSON string. */
     let json_string = to_string(&exec_response).unwrap();
  
+    /* Initialize client. */
     let client = reqwest::Client::new();
+
+    /* Make (remote) data request. */
     let response = client.post(url)
         .header("Authorization", format!("Bearer {}", sessionid.to_string()))
         .header("content-type", "application/json")
@@ -151,180 +144,182 @@ async fn response_json(sessionid: &str, requestid: &str, _response: String) -> R
         .send()
         .await?;
  
-    let response_body = response.text().await?;
+    /* Parse data result. */
+    // let response_body = response.json().await?;
+    let response_body: String = response.text().await?;
 println!("RESPONSE BODY {:?}", response_body);
     /* Return response. */
     Ok(response_body)
 }
 
+/**
+ * Handle Execution
+ * 
+ * Perform execution of the user's specified command against the local system.
+ */
 fn _handle_exec(_resp: RequestResponse) {
-println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
+// println!("\n***HANDLING (VEC) RESPONSE {:?}", _resp);
 
-    /* Validate response. */
-    // if (_resp.len() > 0) {
-        // let cmd = &_resp[0].cmd;
-        let cmd = &_resp.cmd;
-println!("\n***HANDLING (VEC) CMD {:?}", cmd);
+    /* Set command. */
+    let cmd = &_resp.cmd;
+// println!("\n***HANDLING (VEC) CMD {:?}", cmd);
 
-        /* Set session ID. */
-        let sessionid = &_resp.sessionid;
+    /* Set session ID. */
+    let sessionid = &_resp.sessionid;
 
-        /* Set session ID. */
-        let requestid = &_resp.requestid;
+    /* Set session ID. */
+    let requestid = &_resp.requestid;
 
-        if (cmd == "avax" || cmd == "avalanche") {
-            let response = cmd::network::avax().expect("Oops! Could NOT execute `avax`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "install avax" || cmd == "install avalanche") {
-            let response = cmd::network::avax_install().expect("Oops! Could NOT execute `avax_install`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "start avax" || cmd == "start avalanche") {
-            let response = cmd::network::avax_start().expect("Oops! Could NOT execute `avax_start`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "avax status" || cmd == "avalanche status") {
-            let response = cmd::network::avax_status().expect("Oops! Could NOT execute `avax_status`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "build avax" || cmd == "build avalanche") {
-            let response = cmd::network::build_avalanche().expect("Oops! Could NOT execute `install avax`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "df") {
-            let response = cmd::sys::df().expect("Oops! Could NOT execute `df`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "du") {
-            let response = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "install go" || cmd == "install golang") {
-            let response = cmd::sys::install_golang().expect("Oops! Could NOT execute `install go`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "ls") {
-            let response = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "lsblk") {
-            let response = cmd::sys::lsblk().expect("Oops! Could NOT execute `lsblk`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "lscpu") {
-            let response = cmd::sys::lscpu().expect("Oops! Could NOT execute `lscpu`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "lshw") {
-            let response = cmd::sys::lshw().expect("Oops! Could NOT execute `lshw`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "mem") {
-            let response = cmd::sys::mem().expect("Oops! Could NOT execute `mem`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-    
-        if (cmd == "ps") {
-            let response = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-    
-        if (cmd == "profiler") {
-            let response = cmd::sys::system_profiler().expect("Oops! Could NOT execute `system_profiler`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-    
-        if (cmd == "uname") {
-            let response = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "uptime") {
-            let response = cmd::sys::get_uptime().expect("Oops! Could NOT execute `uptime`.");
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-    
-        /*************************************/
-        /* HELP */
-        /*************************************/
-
-        if (cmd == "help") {
-            let response = "Oops! Help is temporarily unavailable. Please try again later...".to_string();
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        /*************************************/
-        /* UNIMPLEMENTED */
-        /*************************************/
-
-        if (cmd == "arb" || cmd == "arbitrum") {
-            let response = "ERROR! Arbitrum is NOT implemented.".to_string();
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "base") {
-            let response = "ERROR! Base is NOT implemented.".to_string();
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "nexa") {
-            let response = "ERROR! Nexa is NOT implemented.".to_string();
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "op" || cmd == "optimism") {
-            let response = "ERROR! Optimism is NOT implemented.".to_string();
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        if (cmd == "sol" || cmd == "solana") {
-            let response = "ERROR! Solana is NOT implemented.".to_string();
-            response_json(sessionid, requestid, response);
-            return ();
-        }
-
-        let response = format!("ERROR! [ {} ] is an UNKNOWN command. Try &lt;help&gt; for more options.", cmd);
+    if (cmd == "avax" || cmd == "avalanche") {
+        let response = cmd::network::avax().expect("Oops! Could NOT execute `avax`.");
         response_json(sessionid, requestid, response);
         return ();
-    // }
+    }
 
-    // let response = "ERROR! A FATAL ERROR OCCURED :(".to_string();
-    // response_json(sessionid, requestid, response);
+    if (cmd == "install avax" || cmd == "install avalanche") {
+        let response = cmd::network::avax_install().expect("Oops! Could NOT execute `avax_install`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "start avax" || cmd == "start avalanche") {
+        let response = cmd::network::avax_start().expect("Oops! Could NOT execute `avax_start`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "avax status" || cmd == "avalanche status") {
+        let response = cmd::network::avax_status().expect("Oops! Could NOT execute `avax_status`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "build avax" || cmd == "build avalanche") {
+        let response = cmd::network::build_avalanche().expect("Oops! Could NOT execute `install avax`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "df") {
+        let response = cmd::sys::df().expect("Oops! Could NOT execute `df`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "du") {
+        let response = cmd::sys::du().expect("Oops! Could NOT execute `du`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "install go" || cmd == "install golang") {
+        let response = cmd::sys::install_golang().expect("Oops! Could NOT execute `install go`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "ls") {
+        let response = cmd::sys::ls().expect("Oops! Could NOT execute `ls`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "lsblk") {
+        let response = cmd::sys::lsblk().expect("Oops! Could NOT execute `lsblk`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "lscpu") {
+        let response = cmd::sys::lscpu().expect("Oops! Could NOT execute `lscpu`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "lshw") {
+        let response = cmd::sys::lshw().expect("Oops! Could NOT execute `lshw`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "mem") {
+        let response = cmd::sys::mem().expect("Oops! Could NOT execute `mem`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "ps") {
+        let response = cmd::sys::ps().expect("Oops! Could NOT execute `ps`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "profiler") {
+        let response = cmd::sys::system_profiler().expect("Oops! Could NOT execute `system_profiler`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "uname") {
+        let response = cmd::sys::get_uname().expect("Oops! Could NOT execute `uname`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "uptime") {
+        let response = cmd::sys::get_uptime().expect("Oops! Could NOT execute `uptime`.");
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    /*************************************/
+    /* HELP */
+    /*************************************/
+
+    if (cmd == "help") {
+        let response = "Oops! Help is temporarily unavailable. Please try again later...".to_string();
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    /*************************************/
+    /* UNIMPLEMENTED */
+    /*************************************/
+
+    if (cmd == "arb" || cmd == "arbitrum") {
+        let response = "ERROR! Arbitrum is NOT implemented.".to_string();
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "base") {
+        let response = "ERROR! Base is NOT implemented.".to_string();
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "nexa") {
+        let response = "ERROR! Nexa is NOT implemented.".to_string();
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "op" || cmd == "optimism") {
+        let response = "ERROR! Optimism is NOT implemented.".to_string();
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    if (cmd == "sol" || cmd == "solana") {
+        let response = "ERROR! Solana is NOT implemented.".to_string();
+        response_json(sessionid, requestid, response);
+        return ();
+    }
+
+    let response = format!("ERROR! [ {} ] is an UNKNOWN command. Try &lt;help&gt; for more options.", cmd);
+    response_json(sessionid, requestid, response);
+    ()
+    // return ();
 }
 
 pub fn by_session(sessionid: &str) {
@@ -344,7 +339,7 @@ pub fn by_session(sessionid: &str) {
         unsafe {
             /* Make (remote) JSON (data) request. */
             response = request_json(sessionid, LAST_SINCE);
-println!("\nRAW---\n{:?}\n", response);
+// println!("\nRAW---\n{:?}\n", response);
         }
 
         // let session_resp: Result<_, Box<dyn std::error::Error>>;
@@ -357,7 +352,7 @@ println!("\nRAW---\n{:?}\n", response);
             },
             Err(_) => println!("\n  ERROR: Failed to receive a response from API server."),
         }
-println!("\nSR---\n{:?}\n", session_resp);
+// println!("\nSR---\n{:?}\n", session_resp);
 
         let mut remote_data: ApiRequestResponse = ApiRequestResponse::default();
         // let mut remote_data: Option<SessionResponse> = None;
@@ -377,7 +372,7 @@ println!("\nSR---\n{:?}\n", session_resp);
             // Err(_) => println!("ERROR: Failed to receive any remote data."),
             Err(_) => (),
         }
-println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
+// println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", age: 25 }
 
 // println!("");
 // println!("  SESSION ID -> {}", remote_data.data[0].sessionid);
@@ -404,21 +399,25 @@ println!("\nRD---\n{:?}\n", remote_data); // Output: Person { name: "Jane Doe", 
                     /* Set (cloned) data. */
                     request_data = cloned.remove(0);
                 }
-
-                unsafe {
-                    /* Update last since. */
-                    // LAST_SINCE = remote_data.last_since
-                    // LAST_SINCE = remote_data.data[0].updatedAt
-                }
             },
             // Err(_) => println!("ERROR: Failed to receive any remote data."),
             None => (),
         }
+
+        /* Validate request ID. */
+        if (!request_data.requestid.is_empty()) {
 println!("\nRQD---\n{:?}\n", request_data);
 println!("\nSID---\n{:?}\n", request_data.sessionid);
 println!("\nCMD---\n{:?}\n", request_data.cmd);
+println!("\n@TS---\n{:?}\n", request_data.createdAt);
 
-        /* Handle execution. */
-        _handle_exec(request_data)
+            unsafe {
+                /* Update last since. */
+                LAST_SINCE = request_data.createdAt
+            }
+
+            /* Handle execution. */
+            _handle_exec(request_data)
+        }
     }
 }

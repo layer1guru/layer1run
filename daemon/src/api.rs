@@ -11,9 +11,14 @@ pub async fn call(_endpoint: &str, _json: &str) -> Result<String, Box<dyn std::e
     /* Set URL (for remote API). */
     let url: String = format!("{}{}", L1GURU_ENDPOINT, _endpoint);
 
-    // let headers = [("Authorization", "Bearer YOUR_API_KEY"), ("X-Custom-Header", "value")];
+// TODO Refactor all API call via this module.
+    /* Initialize headers. */
+    let headers: [(&str, &str); 2] = [
+        ("Authorization", "Bearer YOUR_API_KEY"), 
+        ("content-type", "application/json"),
+    ];
 
-    /* Initialize client */
+    /* Initialize client. */
     let client: reqwest::Client = reqwest::Client::new();
     
     /* Make remote data request. */

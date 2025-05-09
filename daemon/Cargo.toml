@@ -1,8 +1,8 @@
 [package]
 name = "noderunr"
-version = "25.4.26"
+version = "25.5.8"
 authors = ["L1 GÜRŲ -- https://x.com/0xShomari"]
-description = "NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Avalanche Founders and Teams — It’s fast, beautiful, and completely FREE!"
+description = "NodΞRunr is a lightweight, smart daemon delivering effortless SysOps to Founders and Teams — It’s fast, beautiful, and completely FREE!"
 homepage = "https://layer1.run"
 repository = "https://github.com/layer1guru/layer1run"
 categories = ["blockchain", "cryptocurrency"]
@@ -25,7 +25,7 @@ log = "0.4.27"
 reqwest = { version = "0.12.15", features = ["blocking", "json"] }
 serde = "1.0.219"
 serde_json = "1.0.140"
-tokio = { version = "1.44.2", features = ["full"] }
+tokio = { version = "1.45.0", features = ["full"] }
 tokio-stream = "0.1.17"
 
 [dev-dependencies]

@@ -38,7 +38,7 @@ struct Session {
  * Request a new session from the API server.
  */
 pub fn new() -> String {
-    /* Initialize locals. */
+    /* Initialize IP address handler. */
     let mut ip: String;
 
     /* Request IP address. */
@@ -70,7 +70,7 @@ pub fn new() -> String {
     let profile: String = cmd::sys::system_profiler().unwrap();
     
     /* Build (registration) package. */
-    let pkg = Registration {
+    let pkg: Registration = Registration {
         ip: ip.to_string(),
         release: release.to_string(),
         uptime: uptime.to_string(),
@@ -85,6 +85,7 @@ pub fn new() -> String {
     /* Make (remote) request. */
     let response = api::call("session", &json_string);
 
+    /* Initialize (registration) response handler. */
     let mut reg_response: Result<RegistrationResponse, serde_json::Error> = Ok(RegistrationResponse::default());
 
     /* Parse (registration) response. */
@@ -95,24 +96,27 @@ pub fn new() -> String {
         Err(_) => println!("  Ugh! Your node registration failed!\n  Sorry about that, please try again...\n\n")
     }
 
+    /* Initialize registration handler. */
     let mut registration: RegistrationResponse = RegistrationResponse::default();
 
     /* Parse (registration) response. */
     match(reg_response) {
         Ok(_data) => {
-            registration = _data;
+            /* Handle (session) data result. */
+            let session: Session = _data.result;
 
-            /* Set session. */
-            let session: Session = registration.result;
-
-            /* Set session id. */
+            /* Set session ID. */
             let sessionid: String = session.sessionid;
 
-            println!("  NEW session created successfully!\n");
-            println!("  [ {} ]\n", sessionid);
-
+            println!("    ✨ NEW session created successfully ✨");
+            println!("  .-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.");
+            println!("  |                                                   |");
+            println!("  :        {}       :", sessionid);
+            println!("  |                                                   |");
+            println!("  `-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-Current SessionID-=-'\n");
+            
             println!("  Paste the ID 👆 into your Client -OR- click the link below 👇\n");
-            println!("  https://layer1.run/id/#/{}", sessionid);
+            println!("  https://layer1.run/id/#/{} ↗️", sessionid);
 
             /* Start monitoring session. */
             comm::monitor::by_session(&sessionid);
