@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use serde_json::{from_str, json, to_string};
-// use uuid::Uuid;
 
 use crate::api;
 use crate::comm;
@@ -33,7 +32,6 @@ struct Session {
     createdAt: u32,
 }
 
-
 /**
  * New Session
  *
@@ -58,23 +56,22 @@ pub fn new() -> String {
 // println!("\nIP -> {:?}", ip);
 
     /* Request release. */
-    let release = cmd::sys::get_release().unwrap();
+    let release: String = cmd::sys::get_release().unwrap();
     
     /* Request uptime. */
-    let uptime = cmd::sys::get_uptime().unwrap();
+    let uptime: String = cmd::sys::get_uptime().unwrap();
     
     /* Request cpu. */
-    let cpu = cmd::sys::lscpu().unwrap();
+    let cpu: String = cmd::sys::lscpu().unwrap();
     
     /* Request mem. */
-    let mem = cmd::sys::mem().unwrap();
+    let mem: String = cmd::sys::mem().unwrap();
     
     /* Request system profile. */
-    let profile = cmd::sys::system_profiler().unwrap();
+    let profile: String = cmd::sys::system_profiler().unwrap();
     
     /* Build (registration) package. */
     let pkg = Registration {
-        // method: "reg".to_string(),
         ip: ip.to_string(),
         release: release.to_string(),
         uptime: uptime.to_string(),
@@ -84,7 +81,7 @@ pub fn new() -> String {
     };
 
     /* Encode to JSON. */
-    let json_string = to_string(&pkg).unwrap();
+    let json_string: String = to_string(&pkg).unwrap();
 
     /* Make (remote) request. */
     let response = api::call("session", &json_string);
@@ -107,10 +104,10 @@ pub fn new() -> String {
             registration = _data;
 
             /* Set session. */
-            let session = registration.result;
+            let session: Session = registration.result;
 
             /* Set session id. */
-            let sessionid = session.sessionid;
+            let sessionid: String = session.sessionid;
 
             println!("  NEW session created successfully!\n");
             println!("  [ {} ]\n", sessionid);
